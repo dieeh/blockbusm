@@ -5,5 +5,6 @@
     <body>
     <?php echo '<p>Hola Mundo</p>'; ?>
     <?php echo $_SERVER['HTTP_USER_AGENT']; ?>
+    <?php echo '<p>Hola Mundoo</p>'; ?>
     </body>
 </html>
