@@ -2,7 +2,7 @@
 $host = "localhost";
 $usuario = "root";
 $clave = "";
-$bd = "";
+$bd = "blockbusm";
 $conexion = mysqli_connect($host,$usuario,$clave,$bd);
 if ($conexion) {
     echo "Conexión realizada correctamente";
