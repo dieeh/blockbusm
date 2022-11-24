@@ -1,3 +1,19 @@
+<?php
+    require "conexion.php";
+    session_start();
+    if (!empty($_POST['usuario']) && !empty($_POST['clave'])) {
+        $records = "SELECT COUNT(*) FROM users WHERE username=:usuario");
+        $records->bind_param(":usuario", $_POST['usuario']);
+        $consulta = mysqli_query($conexion, $records);
+        $array = mysqli_fetch_array($consulta);
+        if ($array['contar']>0 && password_verify($_POST['clave'], )) {  //fix all db stuff
+            $_SESSION['username'] = $usuario;
+            header("location: ../paginaprincipal.php");
+        }else {
+            echo "Datos incorrectos";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +31,7 @@
     <center>
     <form action="login.php" method="POST">
         <input type="text" name="usuario" placeholder="Please enter your username">
-        <br><br>
         <input type="password" name="clave" placeholder="Please enter your password">
-        <br><br>
         <input type="submit" value="Enter">
     </form>
     </center>

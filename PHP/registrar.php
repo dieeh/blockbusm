@@ -9,7 +9,7 @@
         $sttmnt->bind_param(':clave',$clave);
 
         if ($sttmnt->execute()) {
-            $message = "Created new user successfully";
+            $message = "Created new user successfully, now you can log in";
         }else {
             $message = "Failed to create a new user, try again later";
         }
