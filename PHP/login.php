@@ -2,16 +2,17 @@
     require "conexion.php";
     session_start();
     if (!empty($_POST['usuario']) && !empty($_POST['clave'])) {
-        $records = "SELECT COUNT(*) FROM users WHERE username=:usuario");
-        $records->bind_param(":usuario", $_POST['usuario']);
-        $consulta = mysqli_query($conexion, $records);
-        $array = mysqli_fetch_array($consulta);
-        if ($array['contar']>0 && password_verify($_POST['clave'], )) {  //fix all db stuff
-            $_SESSION['username'] = $usuario;
-            header("location: ../paginaprincipal.php");
-        }else {
-            echo "Datos incorrectos";
-        }
+        $records = $conn->prepare('SELECT username, password FROM users WHERE username = :usuario');
+        $records->bindParam(':usuario', $_POST['usuario']);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
+        $message = '';
+        if (count($results) > 0 && password_verify($_POST['clave'], $results['password'])) {
+            $_SESSION['username'] = $results['username'];
+            header("Location: /blockbusm");
+          } else {
+            $message = 'Sorry, those credentials do not match';
+          }
     }
 ?>
 <!DOCTYPE html>
@@ -29,6 +30,9 @@
     <h1>Login</h1>
     <span>First time around? <a href="registrar.php">Sign Up</a></span>
     <center>
+    <?php if (!empty($message)): ?>
+        <p><?= $message ?></p>
+    <?php endif; ?>
     <form action="login.php" method="POST">
         <input type="text" name="usuario" placeholder="Please enter your username">
         <input type="password" name="clave" placeholder="Please enter your password">

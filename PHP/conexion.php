@@ -3,10 +3,9 @@ $host = "localhost";
 $usuario = "root";
 $clave = "";
 $bd = "blockbusm";
-$conexion = mysqli_connect($host,$usuario,$clave,$bd);
-if ($conexion) {
-    echo "Conexión realizada correctamente";
-}else {
-    echo "Conexión fallida";
-}
+try {
+    $conexion = new PDO("mysql:host=$host;dbname=$bd;", $usuario, $clave);
+  } catch (PDOException $e) {
+    die('Connection Failed: ' . $e->getMessage());
+  }
 ?>

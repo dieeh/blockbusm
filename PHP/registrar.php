@@ -15,7 +15,6 @@
         }
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,21 +27,18 @@
 </head>
 <body>
     <?php require "partials/header.php" ?>
+    <h1>Sign Up</h1>
+    <span>Not new here? <a href="login.php">Login</a></span>
+    <center>
 
     <?php if (!empty($message)): ?>
         <p><?= $message ?></p>
     <?php endif; ?>
 
-    <h1>Sign Up</h1>
-    <span>Not new here? <a href="login.php">Login</a></span>
-    <center>
     <form action="registrar.php">
         <input type="text" name="usuario" placeholder="Please enter your username">
-        <br><br>
         <input type="password" name="clave" placeholder="Please enter your password">
-        <br><br>
         <input type="password" name="confirmar_clave" placeholder="Please confirm your password">
-        <br><br>
         <input type="submit" value="Enter">
     </form>
 </body>

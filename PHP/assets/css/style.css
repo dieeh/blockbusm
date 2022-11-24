@@ -38,7 +38,8 @@ header {
   padding: 20px 0;
   margin-bottom: 10px;
   width: 100%;
-  text-align: center;
+  text-align: left;
+  vertical-align: middle;
 }
 header a {
   text-decoration: none;
