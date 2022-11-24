@@ -1,3 +1,21 @@
+<?php 
+    require "conexion.php";
+    $message = '';
+    if (!empty($_POST['usuario']) && !empty($_POST['clave'])) {
+        $quer = "INSERT INTO users (usuario, clave) VALUES (:usuario, :clave)";
+        $sttmnt = $conexion->prepare($quer);
+        $sttmnt->bind_param(':usuario',$_POST['usuario']);
+        $clave = password_hash($_POST['clave'], PASSWORD_BCRYPT);
+        $sttmnt->bind_param(':clave',$clave);
+
+        if ($sttmnt->execute()) {
+            $message = "Created new user successfully";
+        }else {
+            $message = "Failed to create a new user, try again later";
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +27,12 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    
     <?php require "partials/header.php" ?>
+
+    <?php if (!empty($message)): ?>
+        <p><?= $message ?></p>
+    <?php endif; ?>
+
     <h1>Sign Up</h1>
     <span>Not new here? <a href="login.php">Login</a></span>
     <center>
@@ -23,8 +45,5 @@
         <br><br>
         <input type="submit" value="Enter">
     </form>
-        
-    
-
 </body>
 </html>
