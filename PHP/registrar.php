@@ -23,16 +23,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/a7134cdd83876d9776f7aa08e5411e10?family=ITC+Machine" rel="stylesheet" type="text/css"/>    
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <link href="https://www.dafontfree.net/embed/aXRjLW1hY2hpbmUtc3RkLWJvbGQmZGF0YS80Ni9pLzYwMTUzL01hY2hpbmVTdGQtQm9sZC5vdGY" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <?php require "partials/header.php" ?>
     <div class="bg-image"></div>
     <div class="bg-text" align="center">
         <h1>Sign Up</h1>
-        <span>Not new here? <a href="login.php">Login</a></span>
         <?php if (!empty($message)): ?>
             <p><?= $message ?></p>
         <?php endif; ?>
@@ -42,6 +41,8 @@
             <input type="password" name="confirmar_clave" placeholder="Please confirm your password">
             <input type="submit" value="Enter">
         </form>
+        <span>Not new here? <a href="login.php">Login</a></span>
+
     </div>
 </body>
 </html>
