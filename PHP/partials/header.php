@@ -1,6 +1,9 @@
 <input type="checkbox" id="check">
 <nav>
-    <div class="icon" href="/blockbusm/PHP"><img src="assets/img/icon.png" width="150" height="75" alt="BlockbUSM">BlockbUSM</div>
+    <a href="/blockbusm/PHP" style="text-decoration: none">
+        <div class="icon"><img src="assets/img/icon.png" width="150" height="75" alt="BlockbUSM">BlockbUSM</div>
+    </a>
+
     <div class="search_box">
         <input type="search" placeholder="Search any movie">
         <span class="fa fa-search"></span>

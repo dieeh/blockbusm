@@ -29,10 +29,9 @@
 <body>
     <?php require "partials/header.php" ?>
     <div class="bg-image"></div>
-    <div class="bg-text">
+    <div class="bg-text" align="center">
         <h1>Login</h1>
         <span>First time around? <a href="registrar.php">Sign Up</a></span>
-        <center>
         <?php if (!empty($message)): ?>
             <p><?= $message ?></p>
         <?php endif; ?>
@@ -41,7 +40,6 @@
             <input type="password" name="clave" placeholder="Please enter your password">
             <input type="submit" value="Enter">
         </form>
-        </center>
     </div>
 </body>
 </html>
