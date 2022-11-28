@@ -7,12 +7,11 @@
     <title>Main Page</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
     <?php require "partials/header.php"?>
-    <h1>For more functionality, please login or sign up</h1>
 
-    <a href="login.php">Login</a>
-    <a href="registrar.php">Sign Up</a>
+    <section></section>
 </body>
 </html>

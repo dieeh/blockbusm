@@ -24,12 +24,24 @@
     <title>Login con sesión</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
+    <?php require "partials/header.php" ?>
     <div class="bg-image"></div>
     <div class="bg-text">
-        <h1>I am John Doe</h1>
-        <p>And I'm a Photographer</p>
+        <h1>Login</h1>
+        <span>First time around? <a href="registrar.php">Sign Up</a></span>
+        <center>
+        <?php if (!empty($message)): ?>
+            <p><?= $message ?></p>
+        <?php endif; ?>
+        <form action="login.php" method="POST">
+            <input type="text" name="usuario" placeholder="Please enter your username">
+            <input type="password" name="clave" placeholder="Please enter your password">
+            <input type="submit" value="Enter">
+        </form>
+        </center>
     </div>
 </body>
 </html>

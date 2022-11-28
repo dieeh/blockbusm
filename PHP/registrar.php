@@ -24,22 +24,26 @@
     <title>Sign Up</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
     <?php require "partials/header.php" ?>
-    <h1>Sign Up</h1>
-    <span>Not new here? <a href="login.php">Login</a></span>
-    <center>
+    <div class="bg-image"></div>
+    <div class="bg-text">
+        <h1>Sign Up</h1>
+        <span>Not new here? <a href="login.php">Login</a></span>
+        <center>
 
-    <?php if (!empty($message)): ?>
-        <p><?= $message ?></p>
-    <?php endif; ?>
+        <?php if (!empty($message)): ?>
+            <p><?= $message ?></p>
+        <?php endif; ?>
 
-    <form action="registrar.php">
-        <input type="text" name="usuario" placeholder="Please enter your username">
-        <input type="password" name="clave" placeholder="Please enter your password">
-        <input type="password" name="confirmar_clave" placeholder="Please confirm your password">
-        <input type="submit" value="Enter">
-    </form>
+        <form action="registrar.php">
+            <input type="text" name="usuario" placeholder="Please enter your username">
+            <input type="password" name="clave" placeholder="Please enter your password">
+            <input type="password" name="confirmar_clave" placeholder="Please confirm your password">
+            <input type="submit" value="Enter">
+        </form>
+    </div>
 </body>
 </html>
