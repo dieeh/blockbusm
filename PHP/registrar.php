@@ -25,6 +25,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link href="https://www.dafontfree.net/embed/aXRjLW1hY2hpbmUtc3RkLWJvbGQmZGF0YS80Ni9pLzYwMTUzL01hY2hpbmVTdGQtQm9sZC5vdGY" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <?php require "partials/header.php" ?>

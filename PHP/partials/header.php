@@ -1,7 +1,8 @@
+<link href="https://www.dafontfree.net/embed/aXRjLW1hY2hpbmUtc3RkLWJvbGQmZGF0YS80Ni9pLzYwMTUzL01hY2hpbmVTdGQtQm9sZC5vdGY" rel="stylesheet" type="text/css"/>
 <input type="checkbox" id="check">
 <nav>
     <a href="/blockbusm/PHP" style="text-decoration: none">
-        <div class="icon"><img src="assets/img/icon.png" width="150" height="75" alt="BlockbUSM">BlockbUSM</div>
+        <div class="icon" style="font-family: 'itc-machine-std-bold', sans-serif;"><img src="assets/img/icon.png" width="150" height="75" alt="BlockbUSM">BlockbUSM</div>
     </a>
 
     <div class="search_box">
