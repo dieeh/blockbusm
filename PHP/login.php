@@ -1,15 +1,20 @@
 <?php
-    require "conexion.php";
     session_start();
+
+    if (isset($_SESSION['user_id'])) {
+        header('Location: /blockbusm/PHP');
+    }
+    require "conexion.php";
+
     if (!empty($_POST['usuario']) && !empty($_POST['clave'])) {
-        $records = $conn->prepare('SELECT username, password FROM users WHERE username = :usuario');
+        $records = $conexion->prepare('SELECT id, username, password FROM users WHERE username = :usuario');
         $records->bindParam(':usuario', $_POST['usuario']);
         $records->execute();
         $results = $records->fetch(PDO::FETCH_ASSOC);
         $message = '';
         if (count($results) > 0 && password_verify($_POST['clave'], $results['password'])) {
-            $_SESSION['username'] = $results['username'];
-            header("Location: /blockbusm");
+            $_SESSION['user_id'] = $results['id'];
+            header("Location: /blockbusm/PHP");
           } else {
             $message = 'Sorry, those credentials do not match';
           }

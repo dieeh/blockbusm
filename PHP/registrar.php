@@ -2,11 +2,11 @@
     require "conexion.php";
     $message = '';
     if (!empty($_POST['usuario']) && !empty($_POST['clave'])) {
-        $quer = "INSERT INTO users (usuario, clave) VALUES (:usuario, :clave)";
+        $quer = "INSERT INTO users (username, password) VALUES (:usuario, :clave)";
         $sttmnt = $conexion->prepare($quer);
-        $sttmnt->bind_param(':usuario',$_POST['usuario']);
+        $sttmnt->bindParam(':usuario',$_POST['usuario']);
         $clave = password_hash($_POST['clave'], PASSWORD_BCRYPT);
-        $sttmnt->bind_param(':clave',$clave);
+        $sttmnt->bindParam(':clave',$clave);
 
         if ($sttmnt->execute()) {
             $message = "Created new user successfully, now you can log in";
@@ -29,16 +29,13 @@
 <body>
     <?php require "partials/header.php" ?>
     <div class="bg-image"></div>
-    <div class="bg-text">
+    <div class="bg-text" align="center">
         <h1>Sign Up</h1>
         <span>Not new here? <a href="login.php">Login</a></span>
-        <center>
-
         <?php if (!empty($message)): ?>
             <p><?= $message ?></p>
         <?php endif; ?>
-
-        <form action="registrar.php">
+        <form action="registrar.php" method="POST">
             <input type="text" name="usuario" placeholder="Please enter your username">
             <input type="password" name="clave" placeholder="Please enter your password">
             <input type="password" name="confirmar_clave" placeholder="Please confirm your password">
