@@ -1,6 +1,6 @@
 <input type="checkbox" id="check">
 <nav>
-    <a href="/blockbusm/PHP/adminpage.php" style="text-decoration: none">
+    <a href="/blockbusm/adminpage.php" style="text-decoration: none">
         <div class="icon" style="font-family: 'ITC Machine', sans-serif;"><img src="assets/img/icon.png" width="150" height="75" alt="BlockbUSM">Blockb<b style="font-family: 'ITC Machine', sans-serif;color: #005F95;">USM</b><b style="font-family: 'ITC Machine', sans-serif;color: #FF0000;"> ADMIN</b></div>
     </a>
 
@@ -9,7 +9,7 @@
         <span class="fa fa-search"></span>
     </div>
     <ol>
-        <li><a href="/blockbusm/PHP/adminpage.php">Home</a></li>
+        <li><a href="/blockbusm/adminpage.php">Home</a></li>
         <li><a href="#">Movies</a></li>
         <li><a href="#">Tops</a></li>
         <li><a href="#">About Us</a></li>

@@ -2,6 +2,6 @@
 session_start();
 session_unset();
 session_destroy();
-header("location: /blockbusm/PHP");
+header("location: /blockbusm");
 exit();
 ?>
