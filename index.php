@@ -1,20 +1,20 @@
 <?php
-  session_start();
+    session_start();
 
-  require "conexion.php";
+    require "conexion.php";
 
-  if (isset($_SESSION['user_id'])) {
-    $records = $conexion->prepare('SELECT id, username, password FROM users WHERE id = :id');
-    $records->bindParam(':id', $_SESSION['user_id']);
-    $records->execute();
-    $results = $records->fetch(PDO::FETCH_ASSOC);
+    if (isset($_SESSION['user_id'])) {
+        $records = $conexion->prepare('SELECT id, username, password FROM users WHERE id = :id');
+        $records->bindParam(':id', $_SESSION['user_id']);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
 
-    $user = null;
+        $user = null;
 
-    if (count($results) > 0) {
-      $user = $results;
+        if (count($results) > 0) {
+            $user = $results;
+        }
     }
-  }
 ?>
 
 <!DOCTYPE html>

@@ -15,9 +15,9 @@
         if (count($results) > 0 && password_verify($_POST['clave'], $results['password'])) {
             $_SESSION['user_id'] = $results['id'];
             header("Location: /blockbusm");
-          } else {
+        } else {
             $message = 'Sorry, those credentials do not match';
-          }
+        }
     }
 ?>
 <!DOCTYPE html>

@@ -15,9 +15,9 @@
         if (count($results) > 0 && password_verify($_POST['clave'], $results['admin_password'])) {
             $_SESSION['adminuser_id'] = $results['admin_id'];
             header("Location: /blockbusm/adminpage.php");
-          } else {
+        } else {
             $message = 'Sorry, those credentials do not match';
-          }
+        }
     }
 ?>
 <!DOCTYPE html>

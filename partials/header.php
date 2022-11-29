@@ -1,3 +1,18 @@
+<?php
+    require "conexion.php";
+    if (isset($_SESSION['user_id'])) {
+        $records = $conexion->prepare('SELECT id, username, password FROM users WHERE id = :id');
+        $records->bindParam(':id', $_SESSION['user_id']);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
+        $user = null;
+        if (count($results) > 0) {
+            $user = $results;
+        }
+    }
+?>
+
+
 <input type="checkbox" id="check">
 <nav>
     <a href="/blockbusm" style="text-decoration: none">
@@ -13,8 +28,14 @@
         <li><a href="#">Movies</a></li>
         <li><a href="#">Tops</a></li>
         <li><a href="#">About Us</a></li>
-        <li><a href="login.php">Login</a></li>
-        <li><a href="registrar.php">Sign Up</a></li>
+        <?php if(!empty($user)): ?>
+            <li><a href="profile.php"><?= $user['username']; ?></a></li>
+            <li><a href="salir.php">Log Out</a></li>
+        <?php else: ?>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="registrar.php">Sign Up</a></li>
+        <?php endif; ?>
+        
     </ol>
     <label for="check" class="bar">
         <span class="fa fa-bars" id="bars"></span>

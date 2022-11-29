@@ -1,3 +1,16 @@
+<?php
+    require "conexion.php";
+    if (isset($_SESSION['adminuser_id'])) {
+        $records = $conexion->prepare('SELECT admin_id, admin_username, admin_password FROM admin WHERE admin_id = :id');
+        $records->bindParam(':id', $_SESSION['adminuser_id']);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
+        $user = null;
+        if (count($results) > 0) {
+            $user = $results;
+        }
+    }
+?>
 <input type="checkbox" id="check">
 <nav>
     <a href="/blockbusm/adminpage.php" style="text-decoration: none">
@@ -13,7 +26,12 @@
         <li><a href="#">Movies</a></li>
         <li><a href="#">Tops</a></li>
         <li><a href="#">About Us</a></li>
-        <li><a href="adminlogin.php">Login</a></li>
+        <?php if(!empty($user)): ?>
+            <li><a href="profile.php"><?= $user['admin_username']; ?></a></li>
+            <li><a href="salir.php">Log Out</a></li>
+        <?php else: ?>
+            <li><a href="adminlogin.php">Login</a></li>
+        <?php endif; ?>
     </ol>
     <label for="check" class="bar">
         <span class="fa fa-bars" id="bars"></span>
