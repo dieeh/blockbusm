@@ -22,7 +22,7 @@ div{
 }
 
 .bg-image {
-    background-image: url("../img/wallp/moviewallpaper.jpg");
+    background-image: url("../img/wallp/Liq_wallpaper.jpg");
     background-color: rgb(0,0,0);
     filter: blur(3px);
     -webkit-filter: blur(3px);
@@ -249,9 +249,6 @@ input[type="checkbox"]{
     nav ol li:nth-child(5){
         transform: translateX(-350px);
     }
-    nav ol li:nth-child(6){
-        transform: translateX(-400px);
-    }
     nav .bar{
         display: block;
         position: absolute;
@@ -270,14 +267,13 @@ input[type="checkbox"]{
     }
     #check:checked ~ nav ol{
         visibility: visible;
-        height: 500px;
+        height: 370px;
     }
     #check:checked ~ nav ol li:nth-child(1),
     #check:checked ~ nav ol li:nth-child(2),
     #check:checked ~ nav ol li:nth-child(3),
     #check:checked ~ nav ol li:nth-child(4),
-    #check:checked ~ nav ol li:nth-child(5),
-    #check:checked ~ nav ol li:nth-child(6){
+    #check:checked ~ nav ol li:nth-child(5){
         transform: translateX(0);
         opacity: 1;
     }
