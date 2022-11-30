@@ -15,6 +15,31 @@
             $user = $results;
         }
     }
+
+    if (isset($_POST['add_movie'])) {
+        $movie_title  = $_POST['movie_title'];
+        $movie_gender = $_POST['movie_gender'];
+        $movie_public = $_POST['movie_public'];
+        $movie_lenght = $_POST['movie_lenght'];
+        $movie_cast = $_POST['movie_cast'];
+        $movie_description = $_POST['movie_description'];
+        $movie_image = $_FILES['movie_image']['name'];
+        $movie_image_temp = $_FILES['movie_image']['temp_name'];
+        $movie_image_folder = '/assets/img/posters/uploaded'.$movie_image;
+
+        if (empty($movie_title) || empty($movie_gender) || empty($movie_public) || empty($movie_lenght) || empty($movie_cast) || empty($movie_description) || empty($movie_image)) {
+            $message[]= 'Please fill all fields';
+        } else {
+            $insert = $conexion->query("INSERT INTO movies_carac (title, gender, public, length, cast, description, image) VALUES ('$movie_title','$movie_gender','$movie_public','$movie_length','$movie_cast','$movie_description','$movie_image')");
+            $res_ins = $insert->execute();
+            if ($res_ins) {
+                move_uploaded_file($movie_image_temp, $movie_image_folder);
+                $message[] = 'New movie added successfully';
+            } else {
+                $message[] = "Couldn't add the movie";
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +71,13 @@
                     <input type="file" accept="image/png, image/jpg, image/jpeg" placeholder="Upload movie poster image" name="movie_image" class="box">
                     <input type="submit" value="Add movie" name="add_movie" class="btn">
                 </form>
+                <?php 
+                    if (isset($message)) {
+                        foreach ($message as $message) {
+                            echo '<span class="message">'.$message.'</span>';
+                        }
+                    }    
+                ?>
             </div>
         </div>
     <?php endif; ?>
