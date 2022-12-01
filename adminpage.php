@@ -40,6 +40,12 @@
             }
         }
     }
+
+    if (isset($_GET['delete'])) {
+        $id = $_GET['delete'];
+        $del = $conexion->prepare("DELETE FROM movies_carac WHERE id_movie = $id");
+        $del->execute();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +84,46 @@
                         }
                     }    
                 ?>
+            </div>
+            <?php 
+                $select = $conexion->prepare("SELECT * FROM movies_carac");
+                $select->execute();
+
+            ?>
+
+            <div class="movie-display">
+                <table class="movie-display-table">
+                    <thead>
+                        <tr>
+                            <td>Movie Poster</td>
+                            <td>Movie Title</td>
+                            <td>Movie Gender</td>
+                            <td>Movie Public</td>
+                            <td>Movie Lenght</td>
+                            <td>Movie Cast</td>
+                            <td>Movie Description</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+
+                    <?php
+                        while ($row = $select->fetch(PDO::FETCH_ASSOC)) {
+                    ?>
+                    <tr>
+                        <td><img src="/assets/img/posters/uploaded<?php $row['image']; ?>" height="100"></td>
+                        <td><?php echo $row['title']; ?></td>
+                        <td><?php echo $row['gender']; ?></td>
+                        <td><?php echo $row['public']; ?></td>
+                        <td><?php echo $row['lenght']; ?></td>
+                        <td><?php echo $row['cast']; ?></td>
+                        <td><?php echo $row['description']; ?></td>
+                        <td>
+                            <a href="adminupdate.php?edit=<?php echo $row['id_movie']; ?>" class="btn"> <i class="fas fa-edit"></i>Edit</a>
+                            <a href="adminpage.php?delete=<?php echo $row['id_movie']; ?>" class="btn"> <i class="fas fa-trash"></i>Delete</a>
+                        </td>
+                    </tr>
+                    <?php  }; ?>
+                </table>
             </div>
         </div>
     <?php endif; ?>
