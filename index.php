@@ -31,22 +31,28 @@
 </head>
 <body>
     <?php require "partials/header.php"?>
-    <section></section>
-    <div style="height: 100vh; vertical-alignment: middle;">
-    <?php if(!empty($user)): ?>
-        <a style="color: #fff;">
-            <br> Welcome. <?= $user['username']; ?>
-            <br> You are Successfully Logged In
-            <a href="salir.php">
-                Logout
+    
+    <div style:"position: absolute; vertical-alignment: middle;">
+        <?php if(!empty($user)): ?>
+            <a style="color: #fff;">
+                <br> Welcome. <?= $user['username']; ?>
+                <br> You are Successfully Logged In
+                <a href="salir.php">
+                    Logout
+                </a>
             </a>
-        </a>
-    <?php else: ?>
-        <h1 style="color: #fff;">Please Login or SignUp</h1>
-        <a href="login.php">Login</a> or
-        <a href="registrar.php">SignUp</a>
-    <?php endif; ?>
+        <?php else: ?>
+            <section></section>
+            <div style="transform: translateY(200px); font-size: 30px;">
+                <h1 style="color: #000;">Please Login or Sign Up</h1>
+                <a href="login.php">Login</a> or
+                <a href="registrar.php">Sign Up</a>
+            </div>
+        <?php endif; ?>
     </div>
+    
+    
+    
 
 </body>
 </html>
