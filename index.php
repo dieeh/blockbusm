@@ -34,7 +34,7 @@
     
     <div style:"position: absolute; vertical-alignment: middle;">
         <?php if(!empty($user)): ?>
-            <a style="color: #fff;">
+            <a style="color: #000;">
                 <br> Welcome. <?= $user['username']; ?>
                 <br> You are Successfully Logged In
                 <a href="salir.php">

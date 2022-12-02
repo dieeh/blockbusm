@@ -27,7 +27,7 @@
         <li><a href="/blockbusm">Home</a></li>
         <li><a href="#">Movies</a></li>
         <li><a href="#">Tops</a></li>
-        <li><a href="#">About Us</a></li>
+        <li><a href="aboutus.php">About Us</a></li>
         <?php if(!empty($user)): ?>
             <li><a href="profile.php"><?= $user['username']; ?></a></li>
             <li><a href="salir.php">Log Out</a></li>
