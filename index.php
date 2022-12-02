@@ -32,6 +32,7 @@
 <body>
     <?php require "partials/header.php"?>
     <section></section>
+    <div style="height: 100vh; vertical-alignment: middle;">
     <?php if(!empty($user)): ?>
         <a style="color: #fff;">
             <br> Welcome. <?= $user['username']; ?>
@@ -45,7 +46,7 @@
         <a href="login.php">Login</a> or
         <a href="registrar.php">SignUp</a>
     <?php endif; ?>
-    
-    
+    </div>
+
 </body>
 </html>
