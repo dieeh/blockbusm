@@ -26,16 +26,16 @@
         $movie_cast = $_POST['movie_cast'];
         $movie_description = $_POST['movie_description'];
         $movie_image = $_FILES['movie_image']['name'];
-        $movie_image_temp = $_FILES['movie_image']['temp_name'];
+        $movie_image_tmp_name = $_FILES['movie_image']['tmp_name'];
         $movie_image_folder = 'assets/img/posters/uploaded'.$movie_image;
 
         if (empty($movie_title) || empty($movie_gender) || empty($movie_public) || empty($movie_lenght) || empty($movie_cast) || empty($movie_description) || empty($movie_image)) {
             $message[]= 'Please fill all fields';
         } else {
-            $update = $conexion->query("UPDATE movies_carac SET title = '$movie_title', gender = '$movie_gender', public = '$movie_public', length = '$movie_length', cast = '$movie_cast', description = '$movie_description', image = '$movie_image' WHERE id_movie = $id");
+            $update = $conexion->query("UPDATE movies_carac SET title = '$movie_title', gender = '$movie_gender', public = '$movie_public', lenght = '$movie_lenght', cast = '$movie_cast', description = '$movie_description', image = '$movie_image' WHERE id_movie = $id");
             $res_upd = $update->execute();
             if ($res_upd) {
-                move_uploaded_file($movie_image_temp, $movie_image_folder);
+                move_uploaded_file($movie_image_tmp_name, $movie_image_folder);
                 $message[] = 'Movie updated successfully';
             } else {
                 $message[] = "Couldn't update the movie";
@@ -69,7 +69,7 @@
     <div class="container">
         <div class="admin-movie-form-container centered">
             <?php
-                $select = $conexion->query("SELECT * FROM movies_carac WHERE id_movie = $id");
+                $select = $conexion->prepare("SELECT * FROM movies_carac WHERE id_movie = $id");
                 $select->execute();
                 while ($row = $select->fetch(PDO::FETCH_ASSOC)) {
             ?>
