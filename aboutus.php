@@ -12,7 +12,24 @@
 </head>
 <body>
     <?php require "partials/header.php"; ?>
-    <a href=""><img src="./assets/img/wallp/aboutus.jpg" height="360" width="640" style="vertical-align: middle;" alt="amogus"></a>
-    <p>amogus drip 2</p>
+    <div class="image-txt-container">
+        <img src="./assets/img/wallp/aboutus.jpg" height="360" width="640" style="vertical-align: middle;" alt="amogus">
+        <p>
+            <div style="padding: 20px; text-align: center">
+                <h2>About Us</h2>
+                Albion Online es un mmorpg no lineal, en el que escribes tu propia historia sin limitarte a seguir un camino prefijado. 
+                Explora un amplio mundo abierto con 5 biomas únicos, todo cuánto hagas tendrá su repercusión en el mundo, 
+                con la economía orientada al jugador de Albion, los jugadores crean prácticamente todo el equipo a partir de los recursos que consiguen, 
+                el equipo que llevas define quién eres, cambia de arma y armadura para pasar de caballero a mago, o juega como una mezcla de ambas clases. 
+                Aventúrate en el mundo abierto frente a los habitantes y las criaturas de Albion, 
+                inicia expediciones o adéntrate en mazmorras en las que encontrarás enemigos aún más difíciles, 
+                enfréntate a otros jugadores en encuentros en el mundo abierto, lucha por los territorios o por ciudades enteras en batallas tácticas, 
+                relájate en tu isla privada, donde podrás construir un hogar, cultivar cosechas y criar animales, únete a un gremio, 
+                todo es mejor cuando se trabaja en grupo. Adéntrate ya en el mundo de Albion y escribe tu propia historia.
+            </div>
+        </p>
+
+    </div>
+    
 </body>
 </html>
