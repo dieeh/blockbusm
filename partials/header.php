@@ -20,7 +20,7 @@
     </a>
 
     <div class="search_box">
-        <input type="search" placeholder="Search any movie">
+        <input type="search" placeholder="Search any movie" id="MovieSearch" name="srch">
         <span class="fa fa-search"></span>
     </div>
     <ol>
