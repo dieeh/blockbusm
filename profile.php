@@ -12,7 +12,24 @@ $sql = "SELECT * FROM users WHERE id=$user";
       $nombre= $data['username'];
       //$seguidores= $data['seguidores'];
    }
+   ini_set('error_reporting',0);
+
+   if(!isset($_SESSION['user_id']))
+   {
+     header("Location: login.php");
+   }
+
 ?>
+<?php
+  if(isset($_GET['id']))
+  {
+  $id = mysql_real_escape_string($_GET['id']);
+  $pag = $_GET['perfil'];
+
+  $infouser = mysql_query("SELECT * FROM users WHERE username = '$id'");
+  $use = mysql_fetch_array($infouser);
+
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
