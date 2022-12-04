@@ -47,6 +47,8 @@
             <h3 style="font-size: 20px; text-transform: capitalize; margin-bottom: 25px; letter-spacing: 2px;"><?php echo $row['gender'];?> · <?php echo $row['public'];?> · <?php echo $row['lenght'];?>m</h3>
             <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;">Starring: <?php echo $row['cast'];?></p>
             <p style="font-size: 15px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;"><?php echo $row['description'];?></p>
+            <a class="btn" href="ver.php?view=<?php echo $movies['id_movie']; ?>">Add to wishlist</a>
+            <a class="btn" href="ver.php?view=<?php echo $movies['id_movie']; ?>">Rent</a>
         </div>
     </div>
 

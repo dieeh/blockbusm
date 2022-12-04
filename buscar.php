@@ -62,8 +62,8 @@
             <div class="card-body">
                 <h4 class="card-title"><?php echo $movies['title'];?></h4>
                 <h4 class="card-title"><?php echo $movies['gender'];?></h4>
-                <a class="btn" href="ver.php?view=<?php echo $movies['id_movie']; ?>">Ver más</a>
-                <a class="btn" href="">Arrendar</a>
+                <a class="btn" href="ver.php?view=<?php echo $movies['id_movie']; ?>">See more</a>
+                <a class="btn" href="">Rent</a>
             </div>
         </div>
     <?php } ?>
@@ -76,8 +76,8 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"><?php echo $nombrecito['username'];?></h4>
-                <a href="profile.php?view=<?php echo $nombrecito['id']; ?>" class="btn">Ver perfil</a>
-                <a href="buscar.php?follow=<?php echo $nombrecito['id']; ?>" class="btn">Seguir</a>
+                <a href="profile.php?view=<?php echo $nombrecito['id']; ?>" class="btn">See profile</a>
+                <a href="buscar.php?follow=<?php echo $nombrecito['id']; ?>" class="btn">Follow</a>
             </div>
         </div>
     <?php } ?>
