@@ -26,6 +26,13 @@
     $res1 = $wished->fetchAll(PDO::FETCH_ASSOC);
     $res = count($res1);
 
+    $rented = $conexion->prepare('SELECT * FROM rented_movies WHERE id_movie = :peli AND renter = :user');
+    $rented->bindParam(':peli',$peli_id);
+    $rented->bindParam(':user',$_SESSION['user_id']);
+    $rented->execute();
+    $res2 = $rented->fetchAll(PDO::FETCH_ASSOC);
+    $res3 = count($res2);
+
     $data = $conexion->prepare('SELECT * FROM movies_carac WHERE id_movie = :id');
     $data->bindParam(':id', $peli_id);
     $data->execute();
@@ -46,6 +53,26 @@
         $del = $conexion->prepare("DELETE FROM wishlist WHERE id_movie = $peli_del AND wisher = $usr");
         $del->execute();
         $string = "Location: ver.php?view=$peli_del";
+        header($string);
+    }
+
+    if (isset($_GET['rent'])) {
+        $id_rent = $_GET['rent'];
+        $usr = $_SESSION['user_id'];
+        $rent = $conexion->prepare("INSERT INTO rented_movies (id_movie, renter) VALUES ('$id_rent','$usr')");
+        $rent->execute();
+        $rent2 = $conexion->prepare("UPDATE users SET total_rented = total_rented + 1 WHERE id = $usr");
+        $rent2->execute();
+        $string = "Location: ver.php?view=$id_rent";
+        header($string);
+    }
+
+    if (isset($_GET['return'])) {
+        $peli_ret = $_GET['return'];
+        $usr = $_SESSION['user_id'];
+        $ret = $conexion->prepare("DELETE FROM rented_movies WHERE id_movie = $peli_ret AND renter = $usr");
+        $ret->execute();
+        $string = "Location: ver.php?view=$peli_ret";
         header($string);
     }
 ?>
@@ -78,8 +105,12 @@
             <?php else: ?>
                 <a class="btn" href="ver.php?wish=<?php echo $row['id_movie']; ?>">Add to wishlist</a>
             <?php endif; ?>
-            <a class="btn" href="ver.php?view=<?php echo $row['id_movie']; ?>">Rent</a>
-            <a class="btn2" href="ver.php?return=<?php echo $row['id_movie']; ?>">Return</a>
+
+            <?php if($res3 > 0): ?>
+                <a class="btn2" href="ver.php?return=<?php echo $row['id_movie']; ?>">Return</a>
+            <?php else: ?>
+                <a class="btn" href="ver.php?rent=<?php echo $row['id_movie']; ?>">Rent</a>
+            <?php endif; ?>
         </div>
     </div>
 
