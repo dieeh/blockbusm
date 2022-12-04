@@ -447,7 +447,7 @@ section {
   }
 }
 
-.btn {
+.btn, .btn2 {
   display: block;
   width: 100%;
   cursor: pointer;
@@ -460,7 +460,7 @@ section {
   text-align: center;
 }
 
-.btn:hover {
+.btn:hover, .btn2:hover {
   background: rgb(225, 175, 27);
 }
 
