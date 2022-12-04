@@ -58,7 +58,7 @@
     foreach($result as $movies){ ?>
         <div class="col-md-3">
             <div class="card">
-                <img class="card-img-top" src="/assets/img/posters/uploaded/<?php echo $movies['image'];?>" alt="">
+                <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies['image'];?>" alt="" height="200">
                 <div class="card-body">
                     <h4 class="card-title"><?php echo $movies['title'];?></h4>
                     <h4 class="card-title"><?php echo $movies['gender'];?></h4>
