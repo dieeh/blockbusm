@@ -17,15 +17,22 @@
     }
 
 ?>
-<?php
-    if(isset($_GET['id'])){
-        $id = mysql_real_escape_string($_GET['id']);
-        $pag = $_GET['perfil'];
 
-        $infouser = mysql_query("SELECT * FROM users WHERE username = '$id'");
-        $use = mysql_fetch_array($infouser);
-    }
-?>
+<?php
+  if(isset($_GET['id']))
+    require "conexion.php";
+
+    $sqlA = $mysqli ->query("SELECT * FROM users  WHERE username = '".$_GET['id']."'");
+    $rowA = $sqlA -> $sqlB -> fetch_array();
+    
+    $sqlD = $mysqli ->query("SELECT * FROM Seguidores  WHERE seguidor = '".$_rowA['id']."'");
+    $totalS = $sqlD -> num_rows;
+
+    $sqlC = $mysqli ->query("SELECT * FROM Seguidores  WHERE seguido = '".$_rowA['id']."'");
+    $totalS = $sqlC -> num_rows;
+
+  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,9 +46,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
-    <?php require "partials/header.php"; ?>
+    <?php
+        require "partials/header.php";
+         if(isset($_GET['id']))
+         require "conexion.php";
+
+          $sqlA = $mysqli ->query("SELECT * FROM users  WHERE username = '".$_GET['id']."'");
+          $rowA = $sqlA -> $sqlB -> fetch_array();
+    
+          $sqlD = $mysqli ->query("SELECT * FROM Seguidores  WHERE seguidor = '".$_rowA['id']."'");
+          $totalS = $sqlD -> num_rows;
+
+          $sqlC = $mysqli ->query("SELECT * FROM Seguidores  WHERE seguido = '".$_rowA['id']."'");
+          $totalS = $sqlC -> num_rows;
+    ?>
+    
+    </div>
+     <div class = "inf">
+       <div class = "inf"><b><?php echo $totalS; ?></b> seguidores </div>
+       <div class = "inf"><b><?php echo $totalC; ?></b> seguidos </div>
+    </div>
+      
 
     
-
 </body>
 </html>
