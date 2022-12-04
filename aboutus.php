@@ -47,7 +47,6 @@
                 todo es mejor cuando se trabaja en grupo. Adéntrate ya en el mundo de Albion y escribe tu propia historia.
             </div>
         </p>
-
     </div>
     
 </body>

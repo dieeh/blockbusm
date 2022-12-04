@@ -46,7 +46,7 @@
                         <div class="card-body">
                             <h4 class="card-title"><?php echo $movies['title'];?></h4>
                             <h4 class="card-title"><?php echo $movies['gender'];?></h4>
-                            <a name="" id="" class="btn" href="" role="button">Ver más</a>
+                            <a class="btn" href="ver.php?view=<?php echo $movies['id_movie']; ?>">Ver más</a>
                             <a name="" id="" class="btn" href="" role="button">Arrendar</a>
                         </div>
                     </div>

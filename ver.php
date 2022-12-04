@@ -3,6 +3,8 @@
 
     require "conexion.php";
 
+    $peli_id = $_GET['view']
+
     if (isset($_SESSION['user_id'])) {
         $records = $conexion->prepare('SELECT id, username, password FROM users WHERE id = :id');
         $records->bindParam(':id', $_SESSION['user_id']);
@@ -31,6 +33,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
-    <?php require "partials/header.php"?>
+    <?php require "partials/header.php"?>´
+    
+
 </body>
 </html>
