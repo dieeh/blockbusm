@@ -76,7 +76,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"><?php echo $nombrecito['username'];?></h4>
-                <a href="perfil.php?view=<?php echo $nombrecito['id']; ?>" class="btn">Ver perfil</a>
+                <a href="profile.php?view=<?php echo $nombrecito['id']; ?>" class="btn">Ver perfil</a>
                 <a href="buscar.php?follow=<?php echo $nombrecito['id']; ?>" class="btn">Seguir</a>
             </div>
         </div>

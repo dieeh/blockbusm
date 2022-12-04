@@ -346,7 +346,7 @@ section {
   width: 200px;
   margin: 20px;
   min-width: 0;
-  
+
   word-wrap: break-word;
   background-color: var(--bs-card-bg);
   box-sizing: border-box;
@@ -447,19 +447,32 @@ section {
   }
 }
 
-.btn{
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    border-radius: .5rem;
-    margin-top: 1rem;
-    font-size: 1rem;
-    padding:1rem 3rem;
-    background: #0a5071;
-    color: white;
-    text-align: center;
- }
- 
- .btn:hover{
-    background: rgb(225, 175, 27);
- }
+.btn {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  padding: 1rem 3rem;
+  background: #0a5071;
+  color: white;
+  text-align: center;
+}
+
+.btn:hover {
+  background: rgb(225, 175, 27);
+}
+
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
+}

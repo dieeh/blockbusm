@@ -3,7 +3,7 @@
 
     require "conexion.php";
 
-    $peli_id = $_GET['view']
+    $peli_id = $_GET['view'];
 
     if (isset($_SESSION['user_id'])) {
         $records = $conexion->prepare('SELECT id, username, password FROM users WHERE id = :id');
@@ -17,6 +17,11 @@
             $user = $results;
         }
     }
+
+    $data = $conexion->prepare('SELECT * FROM movies_carac WHERE id_movie = :id');
+    $data->bindParam(':id', $peli_id);
+    $data->execute();
+    $row = $data->fetch(PDO::FETCH_ASSOC)
 ?>
 
 
@@ -35,6 +40,15 @@
 <body>
     <?php require "partials/header.php"?>´
     
+    <div class="main" style="width: 1130px; max-width: 95%; margin: 0 auto; display: flex; align-items: center; justify-content: space-around;">
+        <img src="assets/img/posters/uploaded/<?php echo $row['image'];?>" style="height: auto; width: 400px;">
+        <div class="about-text" style="width: 550px;">
+            <h1 style="font-size: 60px; text-transform: capitalize; margin-bottom: 20px;"><?php echo $row['title'];?></h1>
+            <h3 style="font-size: 20px; text-transform: capitalize; margin-bottom: 25px; letter-spacing: 2px;"><?php echo $row['gender'];?> · <?php echo $row['public'];?> · <?php echo $row['lenght'];?>m</h3>
+            <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;">Starring: <?php echo $row['cast'];?></p>
+            <p style="font-size: 15px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;"><?php echo $row['description'];?></p>
+        </div>
+    </div>
 
 </body>
 </html>
