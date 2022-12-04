@@ -15,6 +15,26 @@
             $user = $results;
         }
     }
+
+    if (!empty($_POST['srch'])) {
+        $searchuser= $_POST['srch'];
+        $quer_user = $conexion->prepare("SELECT * FROM users WHERE username LIKE '%$searchuser%'");
+        //$quer_user->bindParam(':searchuser', $_POST['srch']);
+        $searchpeli = $_POST['srch'];
+        $sentenciaSQL=$conexion->prepare("SELECT * FROM movies_carac WHERE title LIKE '%$searchpeli%'");
+        //$sentenciaSQL->bindParam(':searchpeli',$_POST['srch']);
+    } else {
+        $quer_user = $conexion->prepare("SELECT * FROM users");
+        $sentenciaSQL=$conexion->prepare("SELECT * FROM movies_carac");
+
+    }
+
+    $quer_user->execute();
+    $result1 = $quer_user->fetchAll(PDO::FETCH_ASSOC);
+
+    $sentenciaSQL->execute();
+    $result=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 

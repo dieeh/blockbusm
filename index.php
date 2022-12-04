@@ -34,13 +34,22 @@
     
     <div style:"position: absolute; vertical-alignment: middle;">
         <?php if(!empty($user)): ?>
-            <a style="color: #000;">
-                <br> Welcome. <?= $user['username']; ?>
-                <br> You are Successfully Logged In
-                <a href="salir.php">
-                    Logout
-                </a>
-            </a>
+            <h1>Latest movies added:</h1>
+            <?php 
+            foreach($result as $movies){ ?>
+                <div class="col-md-3">
+                    <div class="card">
+                        <img class="card-img-top" src="/assets/img/posters/uploaded/<?php echo $movies['image'];?>" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $movies['title'];?></h4>
+                            <h4 class="card-title"><?php echo $movies['gender'];?></h4>
+                            <a name="" id="" class="btn" href="" role="button">Ver más</a>
+                            <a name="" id="" class="btn" href="" role="button">arrendar</a>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+
         <?php else: ?>
             <section></section>
             <div style="transform: translateY(200px); font-size: 30px;">

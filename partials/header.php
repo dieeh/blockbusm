@@ -19,10 +19,12 @@
         <div class="icon" style="font-family: 'ITC Machine', sans-serif;"><img src="assets/img/icon.png" width="150" height="75" alt="BlockbUSM">Blockb<b style="font-family: 'ITC Machine', sans-serif;color: #005F95;">USM</b></div>
     </a>
 
-    <div class="search_box">
-        <input type="search" placeholder="Search any movie" id="MovieSearch" name="srch">
-        <span class="fa fa-search"></span>
-    </div>
+    <form action="buscar.php" style="transform: translateY(25%);" method="POST">
+        <div class="search_box">
+            <input type="search" placeholder="Search any movie" id="MovieSearch" name="srch">
+            <span class="fa fa-search"></span>
+        </div>
+    </form>
     <ol>
         <li><a href="/blockbusm">Home</a></li>
         <li><a href="#">Movies</a></li>
