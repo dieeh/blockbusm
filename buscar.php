@@ -54,33 +54,33 @@
     <?php require "partials/header.php"?>
 
     <h1>Movies found:</h1>
+    <div class="col-md-3">
     <?php 
     foreach($result as $movies){ ?>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies['image'];?>" alt="" height="200">
-                <div class="card-body">
-                    <h4 class="card-title"><?php echo $movies['title'];?></h4>
-                    <h4 class="card-title"><?php echo $movies['gender'];?></h4>
-                    <a name="" id="" class="btn" href="" role="button">Ver más</a>
-                    <a name="" id="" class="btn" href="" role="button">arrendar</a>
-                </div>
+        <div class="card">
+            <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies['image'];?>" alt="" height="300">
+            <div class="card-body">
+                <h4 class="card-title"><?php echo $movies['title'];?></h4>
+                <h4 class="card-title"><?php echo $movies['gender'];?></h4>
+                <a name="" id="" class="btn" href="" role="button">Ver más</a>
+                <a name="" id="" class="btn" href="" role="button">Arrendar</a>
             </div>
         </div>
     <?php } ?>
+    </div>
     
     <h1>Users found:</h1>
+    <div class="col-md-3">
     <?php
     foreach ($result1 as $nombrecito) { ?>
-       <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title"><?php echo $nombrecito['title'];?></h4>
-                    <a name="" id="" class="btn" href="" role="button">Ver perfil</a>
-                    <a name="" id="" class="btn" href="" role="button">Seguir</a>
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><?php echo $nombrecito['username'];?></h4>
+                <a name="" id="" class="btn" href="" role="button">Ver perfil</a>
+                <a name="" id="" class="btn" href="" role="button">Seguir</a>
             </div>
-       </div>
+        </div>
     <?php } ?>
+    </div>
 </body>
 </html>
