@@ -1,35 +1,31 @@
 <?php
-session_start();
-include "conexion.php";
+    session_start();
+    include "conexion.php";
 
-$user = $_SESSION['user_id'];
-$sql = "SELECT * FROM users WHERE id=$user";
+    $user = $_SESSION['user_id'];
+    $sql = "SELECT * FROM users WHERE id=$user";
 
-   $resultado =$conexion->query($sql);
-
-   while($data=$resultado->fetch(PDO::FETCH_ASSOC)){
-      $id = $data['id'];
-      $nombre= $data['username'];
-      //$seguidores= $data['seguidores'];
-   }
-   ini_set('error_reporting',0);
-
-   if(!isset($_SESSION['user_id']))
-   {
-     header("Location: login.php");
-   }
+    $resultado =$conexion->query($sql);
+    while($data=$resultado->fetch(PDO::FETCH_ASSOC)){
+        $id = $data['id'];
+        $nombre= $data['username'];
+        //$seguidores= $data['seguidores'];
+    }
+    ini_set('error_reporting',0);
+    if(!isset($_SESSION['user_id'])){
+        header("Location: login.php");
+    }
 
 ?>
 <?php
-  if(isset($_GET['id']))
-  {
-  $id = mysql_real_escape_string($_GET['id']);
-  $pag = $_GET['perfil'];
+    if(isset($_GET['id'])){
+        $id = mysql_real_escape_string($_GET['id']);
+        $pag = $_GET['perfil'];
 
-  $infouser = mysql_query("SELECT * FROM users WHERE username = '$id'");
-  $use = mysql_fetch_array($infouser);
-
-  ?>
+        $infouser = mysql_query("SELECT * FROM users WHERE username = '$id'");
+        $use = mysql_fetch_array($infouser);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,8 +39,9 @@ $sql = "SELECT * FROM users WHERE id=$user";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
-    <?php
-        require "partials/header.php";
-    ?>
+    <?php require "partials/header.php"; ?>
+
+    
+
 </body>
 </html>
