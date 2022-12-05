@@ -16,6 +16,21 @@
         header("Location: login.php");
     }
 
+
+    $follow = $conexion->prepare('SELECT * FROM followers WHERE follower_id = :user1');
+    $follow->bindParam(':user1',$_SESSION['user_id']);
+    $follow->execute();
+    $res1 = $follow->fetchAll(PDO::FETCH_ASSOC);
+    $res = count($res1);
+
+    if (isset($_GET['follow'])) {
+      $followeduser = $_GET['follow'];
+      $usr = $_SESSION['user_id'];
+      $fol = $conexion->prepare("INSERT INTO followers (follower_id, following_id) VALUES ('$usr','$followeduser')");
+      $fol->execute();
+      $string = "Refresh: 0";
+      header($string);
+    }
 ?>
 
 <?php

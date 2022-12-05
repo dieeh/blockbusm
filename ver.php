@@ -63,6 +63,10 @@
         $rent->execute();
         $rent2 = $conexion->prepare("UPDATE users SET total_rented = total_rented + 1 WHERE id = $usr");
         $rent2->execute();
+        $rent3 = $conexion->prepare("UPDATE movies_data SET times_rented = times_rented + 1 WHERE id_movie = $id_rent");
+        $rent3->execute();
+        $rent3 = $conexion->prepare("UPDATE movies_data SET available_units = available_units - 1 WHERE id_movie = $id_rent");
+        $rent3->execute();
         $string = "Location: ver.php?view=$id_rent";
         header($string);
     }
@@ -72,6 +76,8 @@
         $usr = $_SESSION['user_id'];
         $ret = $conexion->prepare("DELETE FROM rented_movies WHERE id_movie = $peli_ret AND renter = $usr");
         $ret->execute();
+        $rent3 = $conexion->prepare("UPDATE movies_data SET available_units = available_units + 1 WHERE id_movie = $peli_ret");
+        $rent3->execute();
         $string = "Location: ver.php?view=$peli_ret";
         header($string);
     }
