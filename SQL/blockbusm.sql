@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2022 a las 03:19:50
+-- Tiempo de generación: 05-12-2022 a las 08:40:29
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -56,7 +56,10 @@ CREATE TABLE `followers` (
 --
 
 INSERT INTO `followers` (`follower_id`, `following_id`) VALUES
-(2, 1);
+(1, 3),
+(3, 1),
+(5, 1),
+(5, 3);
 
 -- --------------------------------------------------------
 
@@ -119,7 +122,7 @@ CREATE TABLE `movies_data` (
 --
 
 INSERT INTO `movies_data` (`id_movie`, `price`, `times_rented`, `available_units`, `total_units`, `site_score`, `usmtomatoes_score`) VALUES
-(23, 3500, 0, 10, 10, 1, 1),
+(23, 3500, 9, 10, 10, 1, 1),
 (25, 4000, 0, 20, 20, 1, 1),
 (27, 3000, 0, 25, 25, 1, 1),
 (28, 4500, 0, 30, 30, 5, 5),
@@ -129,7 +132,13 @@ INSERT INTO `movies_data` (`id_movie`, `price`, `times_rented`, `available_units
 (33, 4750, 0, 6, 6, 4, 4),
 (34, 5500, 0, 7, 7, 5, 5),
 (35, 6500, 0, 8, 8, 5, 5),
-(36, 3500, 0, 14, 14, 5, 5);
+(36, 3500, 0, 14, 14, 5, 5),
+(37, 7000, 0, 12, 12, 1, 5),
+(38, 12000, 0, 12, 12, 2, 5),
+(39, 2300, 0, 21, 21, 3, 5),
+(40, 4500, 0, 52, 52, 4, 4),
+(41, 5500, 0, 5, 5, 5, 5),
+(42, 10000, 2, 2, 4, 5, 5);
 
 -- --------------------------------------------------------
 
@@ -148,10 +157,13 @@ CREATE TABLE `rented_movies` (
 
 INSERT INTO `rented_movies` (`id_movie`, `renter`) VALUES
 (38, 1),
+(38, 3),
+(39, 3),
 (40, 1),
-(40, 2),
+(40, 3),
 (42, 1),
-(42, 2);
+(42, 5),
+(42, 6);
 
 -- --------------------------------------------------------
 
@@ -186,8 +198,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `total_rented`, `balance`) VALUES
 (1, 'dieeh', '$2y$10$Q2xAolr/zs75sjhZl7T1vup871PjwNGtrm17eszB35EPXQcJgMlG6', 15, 1000000),
-(2, 'test1', '$2y$10$Set.H4OrBIwYa3yUvAqjDeuVJmHtPNdfkTydUgqsTbixbiB8t694K', 2, 1000000),
-(3, 'test2', '$2y$10$R8HWgOsVZan3jjfGdlF00uyLb9bfH7OZa4n2pBSgVXLEbzjCBa7Pq', 0, 1000000);
+(3, 'test2', '$2y$10$EeT35FJGC9sa36UvNgn/Vuwzmmrw7cqn.Dotdwjgwvhhuh3Oe4Jg.', 13, 993000),
+(5, 'test1', '$2y$10$Io10VTAbnPGtEQRnePsxVu9UjHioXb2nqVA7qY9Hfee14.8lCq0bu', 1, 990000),
+(6, 'test4', '$2y$10$6buDgjZnL1eniCAoY3u.aeOOtHMMIOlArNK/DP32GF6bujkvhIUOW', 1, 990000);
 
 -- --------------------------------------------------------
 
@@ -205,11 +218,10 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`id_movie`, `wisher`) VALUES
+(27, 5),
 (38, 1),
 (40, 1),
-(40, 2),
-(42, 1),
-(42, 2);
+(42, 1);
 
 --
 -- Índices para tablas volcadas
@@ -226,7 +238,7 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `followers`
   ADD PRIMARY KEY (`follower_id`,`following_id`),
-  ADD KEY `following_id` (`following_id`);
+  ADD KEY `followers_ibfk_2` (`following_id`);
 
 --
 -- Indices de la tabla `movies_carac`
@@ -245,14 +257,14 @@ ALTER TABLE `movies_data`
 --
 ALTER TABLE `rented_movies`
   ADD PRIMARY KEY (`id_movie`,`renter`),
-  ADD KEY `renter` (`renter`);
+  ADD KEY `rented_movies_ibfk_2` (`renter`);
 
 --
 -- Indices de la tabla `reviews`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id_reviewer`,`id_movie_reviewed`),
-  ADD KEY `id_movie_reviewed` (`id_movie_reviewed`);
+  ADD KEY `reviews_ibfk_2` (`id_movie_reviewed`);
 
 --
 -- Indices de la tabla `users`
@@ -265,7 +277,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `wishlist`
   ADD PRIMARY KEY (`id_movie`,`wisher`),
-  ADD KEY `wisher` (`wisher`);
+  ADD KEY `wishlist_ibfk_1` (`wisher`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -287,13 +299,13 @@ ALTER TABLE `movies_carac`
 -- AUTO_INCREMENT de la tabla `movies_data`
 --
 ALTER TABLE `movies_data`
-  MODIFY `id_movie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_movie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -303,34 +315,34 @@ ALTER TABLE `users`
 -- Filtros para la tabla `followers`
 --
 ALTER TABLE `followers`
-  ADD CONSTRAINT `followers_ibfk_1` FOREIGN KEY (`follower_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `followers_ibfk_2` FOREIGN KEY (`following_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `followers_ibfk_1` FOREIGN KEY (`follower_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `followers_ibfk_2` FOREIGN KEY (`following_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `movies_data`
 --
 ALTER TABLE `movies_data`
-  ADD CONSTRAINT `test` FOREIGN KEY (`id_movie`) REFERENCES `movies_carac` (`id_movie`);
+  ADD CONSTRAINT `test` FOREIGN KEY (`id_movie`) REFERENCES `movies_carac` (`id_movie`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `rented_movies`
 --
 ALTER TABLE `rented_movies`
-  ADD CONSTRAINT `rented_movies_ibfk_1` FOREIGN KEY (`id_movie`) REFERENCES `movies_carac` (`id_movie`),
-  ADD CONSTRAINT `rented_movies_ibfk_2` FOREIGN KEY (`renter`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `rented_movies_ibfk_1` FOREIGN KEY (`id_movie`) REFERENCES `movies_carac` (`id_movie`) ON DELETE CASCADE,
+  ADD CONSTRAINT `rented_movies_ibfk_2` FOREIGN KEY (`renter`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `reviews`
 --
 ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`id_reviewer`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`id_movie_reviewed`) REFERENCES `movies_carac` (`id_movie`);
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`id_reviewer`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`id_movie_reviewed`) REFERENCES `movies_carac` (`id_movie`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`wisher`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`wisher`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
