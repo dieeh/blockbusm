@@ -34,29 +34,20 @@
         </form>
         <?php
             if(isset($_POST['comentar'])) {
-                $query = mysql_query("INSERT INTO reviews (comment,id_reviewer) value ('".$_POST['comentario']."','".$_SESSION['user_id']."'");	
+                $query = mysql_query("INSERT INTO reviews (comment,id_reviewer) value ('".$_POST['reviews']."','".$_SESSION['user_id']."'");	
                 if($query) { header("Location: index.php"); }
             }
         ?>
         <?php
             if(isset($_POST['reply'])) {
-                $query = mysql_query("INSERT INTO comentarios (comentario,usuario,fecha,reply) value ('".$_POST['comentario']."','".$_SESSION['user_id']."',NOW(),'".$_GET['id']."')");	
+                $query = mysql_query("INSERT INTO reviews (comment,usuario) value ('".$_POST['reviews']."','".$_SESSION['user_id']."',NOW(),'".$_GET['id']."')");	
                 if($query) { header("Location: index.php"); }
             }
         ?>
         <br>
         <div id="container">
             <ul id="comments">
-                <?php
-                    $comentarios = mysql_query("SELECT * FROM comentarios WHERE reply = 0 ORDER BY id DESC");
-                    while($row=mysql_fetch_array($comentarios)) {
-                        $usuario = mysql_query("SELECT * FROM usuarios WHERE id = '".$row['usuario']."'");
-                        $user = mysql_fetch_array($usuario);
-                ?>
-                <li class="cmmnt">
-                    <div class="avatar">
-                        <img src="<?php echo $user['avatar']; ?>" height="55" width="55">
-                    </div>
+                
                     <div class="cmmnt-content">
                         <header>
                             <a href="#" class="userlink"><?php echo $user['usuario']; ?></a> - <span class="pubdate"><?php echo $row['fecha']; ?></span>
@@ -71,30 +62,14 @@
                         </span>
                     </div>
                     <?php
-                        $contar = mysql_num_rows(mysql_query("SELECT * FROM comentarios WHERE reply = '".$row['id']."'"));
+                        $contar = mysql_num_rows(mysql_query("SELECT * FROM reviews WHERE reply = '".$row['id']."'"));
                         if($contar != '0') {
-                            $reply = mysql_query("SELECT * FROM comentarios WHERE reply = '".$row['id']."' ORDER BY id DESC");
+                            $reply = mysql_query("SELECT * FROM reviews WHERE reply = '".$row['id']."' ORDER BY id DESC");
                             while($rep=mysql_fetch_array($reply)) {
-                                $usuario2 = mysql_query("SELECT * FROM usuarios WHERE id = '".$rep['usuario']."'");
+                                $usuario2 = mysql_query("SELECT * FROM user WHERE id = '".$rep['usuario']."'");
                                 $user2 = mysql_fetch_array($usuario2);
                     ?>
-                    <ul class="replies">
-                        <li class="cmmnt">
-                            <div class="avatar">
-                                <img src="<?php echo $user2['avatar']; ?>" height="55" width="55">
-                            </div>
-                            <div class="cmmnt-content">
-                                <header>
-                                    <a href="#" class="userlink"><?php echo $user2['usuario']; ?></a> - <span class="pubdate"><?php echo $rep['fecha']; ?></span>
-                                </header>
-                                <p>
-                                    <?php echo $rep['comentario']; ?>
-                                </p>
-                            </div>
-                        
-                        </li>
-                    </ul> 
-                    <?php } } } ?>    
+   
                 </li>               
             </ul>
         </div>   
