@@ -12,7 +12,7 @@
         $records->execute();
         $results = $records->fetch(PDO::FETCH_ASSOC);
         $message = '';
-        if ($results == NULL) {
+        if ($results == NULL) {  //results está vacio
             $message = 'Sorry, that account does not exist';
         } elseif (count($results) > 0 && password_verify($_POST['clave'], $results['password'])) {
             $_SESSION['user_id'] = $results['id'];

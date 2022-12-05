@@ -36,6 +36,8 @@
 
     $topsellerE = $conexion->query("SELECT movies_carac.* FROM movies_carac LEFT JOIN movies_data ON movies_carac.id_movie = movies_data.id_movie WHERE movies_carac.public = 'E' ORDER BY movies_data.times_rented DESC LIMIT 5");
     $result6 = $topsellerE->fetchAll(PDO::FETCH_ASSOC);
+
+    $toprated = $conexion->query("SELECT movies_carac.* FROM movies_carac LEFT JOIN reviews ON reviews.id_movie_reviewed = movies_data.id_movie WHERE ");
 ?>
 
 <!DOCTYPE html>
@@ -155,6 +157,21 @@
                             <h4 class="card-title"><?php echo $movies7['title'];?></h4>
                             <h4 class="card-title"><?php echo $movies7['gender'];?></h4>
                             <a class="btn" href="ver.php?view=<?php echo $movies7['id_movie']; ?>">See more</a>
+                        </div>
+                    </div>
+            <?php } ?>
+            </div>
+
+            <h1>Top 5 reviewed movies:</h1>
+            <div class="col-md-3">
+            <?php 
+            foreach($result7 as $movies8){ ?>
+                    <div class="card">
+                        <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies8['image'];?>" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $movies8['title'];?></h4>
+                            <h4 class="card-title"><?php echo $movies8['gender'];?></h4>
+                            <a class="btn" href="ver.php?view=<?php echo $movies8['id_movie']; ?>">See more</a>
                         </div>
                     </div>
             <?php } ?>
