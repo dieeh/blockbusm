@@ -38,7 +38,7 @@
     $data->execute();
     $row = $data->fetch(PDO::FETCH_ASSOC);
 
-    $rent4 = $conexion->prepare("SELECT price FROM movies_data WHERE id_movie = :id");
+    $rent4 = $conexion->prepare("SELECT * FROM movies_data WHERE id_movie = :id");
     $rent4->bindParam(':id', $peli_id);
     $rent4->execute();
     $precio = $rent4->fetch(PDO::FETCH_ASSOC);
@@ -106,13 +106,17 @@
 <body>
     <?php require "partials/header.php"?>
     
-    <div class="main" style="width: 1130px; max-width: 95%; margin: 0 auto; display: flex; align-items: center; justify-content: space-around; padding: 30px;">
+    <div class="main" style="width: 1200px; max-width: 95%; margin: 0 auto; display: flex; align-items: center; justify-content: space-around; padding: 30px;">
         <img src="assets/img/posters/uploaded/<?php echo $row['image'];?>" style="height: auto; width: 400px;">
-        <div class="about-text" style="width: 550px;">
-            <h1 style="font-size: 60px; text-transform: capitalize; margin-bottom: 20px;"><?php echo $row['title'];?></h1>
-            <h3 style="font-size: 20px; text-transform: capitalize; margin-bottom: 25px; letter-spacing: 2px;"><?php echo $row['gender'];?> · <?php echo $row['public'];?> · <?php echo $row['lenght'];?>m</h3>
-            <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;">Starring: <?php echo $row['cast'];?></p>
-            <p style="font-size: 15px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;"><?php echo $row['description'];?></p>
+        <div class="about-text" style="width: 850px; padding: 25px;">
+            <h1 style="font-size: 50px; text-transform: capitalize; margin-bottom: 20px;"><?php echo $row['title'];?></h1>
+            <h3 style="font-size: 30px; text-transform: capitalize; margin-bottom: 25px; letter-spacing: 2px;"><?php echo $row['gender'];?> · <?php echo $row['public'];?> · <?php echo $row['lenght'];?>m</h3>
+            <p style="font-size: 22px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;">Starring: <?php echo $row['cast'];?></p>
+            <p style="font-size: 20px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;"><?php echo $row['description'];?></p>
+            <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">This movie has been rented a total of <?php echo $precio['times_rented'];?> time(s)</p>
+            <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">There is <?php echo $precio['available_units'];?> of <?php echo $precio['total_units'];?> copies remaining.</p>
+            <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">This movie has a rating on USMTomatoes of <?php echo $precio['usmtomatoes_score'];?> and a site score of <?php echo $precio['site_score'];?></p>
+
             <?php if(isset($_SESSION['user_id'])): ?>    
                 <?php if($res > 0): ?>
                     <a class="btn2" href="ver.php?delete=<?php echo $row['id_movie']; ?>">Remove from wishlist</a>
