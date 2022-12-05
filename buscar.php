@@ -73,6 +73,7 @@
     foreach ($result1 as $nombrecito) { ?>
         <div class="card">
             <div class="card-body">
+                <img class="card-img-top" src="assets/img/icon-profile.png" alt="" height="200">
                 <h4 class="card-title"><?php echo $nombrecito['username'];?></h4>
                 <a href="profile.php?view=<?php echo $nombrecito['id']; ?>" class="btn">See profile</a>
             </div>

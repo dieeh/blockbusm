@@ -16,8 +16,9 @@
     }
 
 
-    $follow = $conexion->prepare('SELECT * FROM followers WHERE follower_id = :user1');
+    $follow = $conexion->prepare('SELECT * FROM followers WHERE follower_id = :user1 AND following_id = :user2');
     $follow->bindParam(':user1',$_SESSION['user_id']);
+    $follow->bindParam(':user2',$_GET['view']);
     $follow->execute();
     $res1 = $follow->fetchAll(PDO::FETCH_ASSOC);
     $res = count($res1);
@@ -27,7 +28,16 @@
         $usr = $_SESSION['user_id'];
         $fol = $conexion->prepare("INSERT INTO followers (follower_id, following_id) VALUES ('$usr','$followeduser')");
         $fol->execute();
-        $string = "Refresh: 0";
+        $string = "Location: profile.php?view=$followeduser";
+        header($string);
+    }
+
+    if (isset($_GET['unfollow'])) {
+        $unfollowuser = $_GET['unfollow'];
+        $usr = $_SESSION['user_id'];
+        $unf = $conexion->prepare("DELETE FROM followers WHERE follower_id = $usr AND following_id = $unfollowuser");
+        $unf->execute();
+        $string = "Location: profile.php?view=$unfollowuser";
         header($string);
     }
 
@@ -69,11 +79,20 @@
     <?php require "partials/header.php" ?>
 
     <div class="main" style="width: 1130px; max-width: 95%; margin: 0 auto; display: flex; align-items: center; justify-content: space-around; padding: 30px;">
-        <img src="assets/img/icon-profile.png" style="height: auto; width: 200px;">
+        <img src="assets/img/icon-profile.png" style="height: auto; width: 300px;">
         <div class="about-text" style="width: 550px;">
             <h1 style="font-size: 60px; text-transform: capitalize; margin-bottom: 20px;"><?php echo $resultados['username'];?></h1>
             <h3 style="font-size: 20px; margin-bottom: 25px; letter-spacing: 2px;"><?php echo $resultados['total_rented'];?> movies rented in total · <?php echo $num;?> movies rented now</h3>
             <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;"><?php echo $seguidores;?> followers · following <?php echo $seguidos;?></p>
+            <?php if($_SESSION['user_id'] != $_GET['view']): ?>
+                <?php if($res > 0): ?>
+                    <a class="btn2" href="profile.php?unfollow=<?php echo $resultados['id']; ?>">Unfollow</a>
+                <?php else: ?>
+                    <a class="btn" href="profile.php?follow=<?php echo $resultados['id']; ?>">Follow</a>
+                <?php endif; ?>
+            <?php else: ?>
+                <a class="btn" href="editacc.php?edit=<?php echo $_SESSION['user_id']; ?>">Edit account</a>
+            <?php endif; ?>
         </div>
     </div>
 </body>
