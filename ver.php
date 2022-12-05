@@ -113,16 +113,20 @@
             <h3 style="font-size: 20px; text-transform: capitalize; margin-bottom: 25px; letter-spacing: 2px;"><?php echo $row['gender'];?> · <?php echo $row['public'];?> · <?php echo $row['lenght'];?>m</h3>
             <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;">Starring: <?php echo $row['cast'];?></p>
             <p style="font-size: 15px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;"><?php echo $row['description'];?></p>
-            <?php if($res > 0): ?>
-                <a class="btn2" href="ver.php?delete=<?php echo $row['id_movie']; ?>">Remove from wishlist</a>
-            <?php else: ?>
-                <a class="btn" href="ver.php?wish=<?php echo $row['id_movie']; ?>">Add to wishlist</a>
-            <?php endif; ?>
+            <?php if(isset($_SESSION['user_id'])): ?>    
+                <?php if($res > 0): ?>
+                    <a class="btn2" href="ver.php?delete=<?php echo $row['id_movie']; ?>">Remove from wishlist</a>
+                <?php else: ?>
+                    <a class="btn" href="ver.php?wish=<?php echo $row['id_movie']; ?>">Add to wishlist</a>
+                <?php endif; ?>
 
-            <?php if($res3 > 0): ?>
-                <a class="btn2" href="ver.php?return=<?php echo $row['id_movie']; ?>">Return</a>
+                <?php if($res3 > 0): ?>
+                    <a class="btn2" href="ver.php?return=<?php echo $row['id_movie']; ?>">Return</a>
+                <?php else: ?>
+                    <a class="btn" href="ver.php?rent=<?php echo $row['id_movie']; ?>">Rent for $<?php echo $precio2 ?></a>
+                <?php endif; ?>
             <?php else: ?>
-                <a class="btn" href="ver.php?rent=<?php echo $row['id_movie']; ?>">Rent for $<?php echo $precio2 ?></a>
+                <a class="btn" href="login.php">Login to access to all functions</a>
             <?php endif; ?>
         </div>
     </div>

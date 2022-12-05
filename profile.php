@@ -23,6 +23,17 @@
     $res1 = $follow->fetchAll(PDO::FETCH_ASSOC);
     $res = count($res1);
 
+    $getName = $conexion->prepare("SELECT username FROM users WHERE id  = :user3");
+    $getName->bindParam(':user3',$_GET['view']);
+    $getName->execute();
+    $name = $getName->fetchAll(PDO::FETCH_ASSOC);
+
+    $data_seguidos = $conexion->prepare("SELECT * FROM users WHERE id IN (SELECT following_id FROM followers WHERE follower_id = :user3)");
+    $data_seguidos->bindParam(':user3',$_GET['view']);
+    $data_seguidos->execute();
+    $dataF = $data_seguidos->fetchAll(PDO::FETCH_ASSOC);
+
+
     if (isset($_GET['follow'])) {
         $followeduser = $_GET['follow'];
         $usr = $_SESSION['user_id'];
@@ -54,6 +65,8 @@
         $viewer3 = $conexion->prepare("SELECT * FROM followers WHERE follower_id = $viewed_user");
         $viewer3->execute();
         $resultados2 = $viewer3->fetchAll(PDO::FETCH_ASSOC);
+
+
         $seguidos = count($resultados2);
         $viewer4 = $conexion->prepare("SELECT * FROM followers WHERE following_id = $viewed_user");
         $viewer4->execute();
@@ -84,16 +97,35 @@
             <h1 style="font-size: 60px; text-transform: capitalize; margin-bottom: 20px;"><?php echo $resultados['username'];?></h1>
             <h3 style="font-size: 20px; margin-bottom: 25px; letter-spacing: 2px;"><?php echo $resultados['total_rented'];?> movies rented in total · <?php echo $num;?> movies rented now</h3>
             <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px; letter-spacing: 1px;"><?php echo $seguidores;?> followers · following <?php echo $seguidos;?></p>
-            <?php if($_SESSION['user_id'] != $_GET['view']): ?>
-                <?php if($res > 0): ?>
-                    <a class="btn2" href="profile.php?unfollow=<?php echo $resultados['id']; ?>">Unfollow</a>
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <?php if($_SESSION['user_id'] != $_GET['view']): ?>
+                    <?php if($res > 0): ?>
+                        <a class="btn2" href="profile.php?unfollow=<?php echo $resultados['id']; ?>">Unfollow</a>
+                    <?php else: ?>
+                        <a class="btn" href="profile.php?follow=<?php echo $resultados['id']; ?>">Follow</a>
+                    <?php endif; ?>
+                    <a class="btn" href="wishlist.php?view=<?php echo $resultados['id']; ?>">View wishlist</a>
                 <?php else: ?>
-                    <a class="btn" href="profile.php?follow=<?php echo $resultados['id']; ?>">Follow</a>
+                    <a class="btn" href="editacc.php?edit=<?php echo $_SESSION['user_id']; ?>">Edit account</a>
+                    <a class="btn" href="wishlist.php?view=<?php echo $_SESSION['user_id']; ?>">View wishlist</a>
                 <?php endif; ?>
             <?php else: ?>
-                <a class="btn" href="editacc.php?edit=<?php echo $_SESSION['user_id']; ?>">Edit account</a>
+                <a class="btn" href="login.php">Login to access to all functions</a>
             <?php endif; ?>
         </div>
+    </div>
+    <h1>Users followed by <?php echo $name[0]['username'] ?>:</h1>
+    <div class="col-md-3">
+    <?php
+    foreach ($dataF as $nombrecito) { ?>
+        <div class="card">
+            <div class="card-body">
+                <img class="card-img-top" src="assets/img/icon-profile.png" alt="" height="200">
+                <h4 class="card-title"><?php echo $nombrecito['username'];?></h4>
+                <a href="profile.php?view=<?php echo $nombrecito['id']; ?>" class="btn">See profile</a>
+            </div>
+        </div>
+    <?php } ?>
     </div>
 </body>
 </html>
