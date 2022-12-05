@@ -42,6 +42,26 @@
             }
         }
     }
+
+    if (isset($_POST['add_details'])) {
+        $movie_price  = $_POST['movie_price'];
+        $movie_a_units = $_POST['movie_a_units'];
+        $movie_t_units = $_POST['movie_t_units'];
+        $movie_score = $_POST['movie_score'];
+        $movie_u_score = $_POST['movie_u_score'];
+        
+        if (empty($movie_price) || empty($movie_a_units) || empty($movie_t_units) || empty($movie_score) || empty($movie_u_score)) {
+            $message[]= 'Please fill all fields';
+        } else {
+            $update = $conexion->prepare("INSERT INTO movies_data (id_movie, price, available_units, total_units, site_score, usmtomatoes_score) VALUES ('$id','$movie_price','$movie_a_units','$movie_t_units','$movie_score','$movie_u_score')");
+            $res_upd = $update->execute();
+            if ($res_upd) {
+                $message[] = 'Movie data added successfully';
+            } else {
+                $message[] = "Couldn't add the movie data";
+            }
+        }
+    }
 ?>
 
 
@@ -65,8 +85,21 @@
             }
         }    
     ?>
+    <h1>Please only fill one of the forms at a time</h1>
+    <div class="container" style="display: flex; flex-direction: row; justify-content: space-around; flex-flow: wrap; align-items: center;">
 
-    <div class="container">
+        <div class="admin-movie-form-container">
+                <form action="<?php "adminpage.php" ?>" method="POST" enctype="multipart/form-data">
+                    <h3>Add details to movie</h3>
+                    <input type="number" min="0" placeholder="Enter movie price" name="movie_price" class="box">
+                    <input type="number" min="0" placeholder="Enter available units" name="movie_a_units" class="box">
+                    <input type="number" placeholder="Enter total units" name="movie_t_units" class="box">
+                    <input type="number" min="0" placeholder="Enter site score" name="movie_score" class="box">
+                    <input type="number" min="0" placeholder="Enter movie cast" name="movie_u_score" class="box">
+                    <input type="submit" value="Add details" name="add_details" class="btn">
+                </form>
+        </div>
+        
         <div class="admin-movie-form-container centered">
             <?php
                 $select = $conexion->prepare("SELECT * FROM movies_carac WHERE id_movie = $id");
