@@ -31,7 +31,7 @@
         <li><a href="#">Tops</a></li>
         <li><a href="aboutus.php">About Us</a></li>
         <?php if(!empty($user)): ?>
-            <li><a href="profile.php"><?= $user['username']; ?></a></li>
+            <li><a href="profile.php?view=<?php echo $user['id']; ?>"><?= $user['username']; ?></a></li>
             <li><a href="salir.php">Log Out</a></li>
         <?php else: ?>
             <li><a href="login.php">Login</a></li>

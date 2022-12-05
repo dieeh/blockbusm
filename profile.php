@@ -2,18 +2,17 @@
     session_start();
     include "conexion.php";
 
-    $user = $_SESSION['user_id'];
-    $sql = "SELECT * FROM users WHERE id=$user";
+    if (isset($_SESSION['user_id'])) {
+        $records = $conexion->prepare('SELECT id, username, password FROM users WHERE id = :id');
+        $records->bindParam(':id', $_SESSION['user_id']);
+        $records->execute();
+        $results = $records->fetch(PDO::FETCH_ASSOC);
 
-    $resultado =$conexion->query($sql);
-    while($data=$resultado->fetch(PDO::FETCH_ASSOC)){
-        $id = $data['id'];
-        $nombre= $data['username'];
-        //$seguidores= $data['seguidores'];
-    }
-    ini_set('error_reporting',0);
-    if(!isset($_SESSION['user_id'])){
-        header("Location: login.php");
+        $user = null;
+
+        if (count($results) > 0) {
+            $user = $results;
+        }
     }
 
 
@@ -24,29 +23,22 @@
     $res = count($res1);
 
     if (isset($_GET['follow'])) {
-      $followeduser = $_GET['follow'];
-      $usr = $_SESSION['user_id'];
-      $fol = $conexion->prepare("INSERT INTO followers (follower_id, following_id) VALUES ('$usr','$followeduser')");
-      $fol->execute();
-      $string = "Refresh: 0";
-      header($string);
+        $followeduser = $_GET['follow'];
+        $usr = $_SESSION['user_id'];
+        $fol = $conexion->prepare("INSERT INTO followers (follower_id, following_id) VALUES ('$usr','$followeduser')");
+        $fol->execute();
+        $string = "Refresh: 0";
+        header($string);
+    }
+
+    if (isset($_GET['view'])){
+        $viewed_user = $_GET['view']
+        $viewer = $conexion->prepare("SELECT * FROM users WHERE id = $viewed_user");
+        $viewer->execute();
+        $resultados = $viewer->fetchAll(PDO::FETCH_ASSOC);
     }
 ?>
 
-<?php
-  if(isset($_GET['id']))
-    require "conexion.php";
-
-    $sqlA = $mysqli ->query("SELECT * FROM users  WHERE username = '".$_GET['id']."'");
-    $rowA = $sqlA -> $sqlB -> fetch_array();
-    
-    $sqlD = $mysqli ->query("SELECT * FROM Seguidores  WHERE seguidor = '".$_rowA['id']."'");
-    $totalS = $sqlD -> num_rows;
-
-    $sqlC = $mysqli ->query("SELECT * FROM Seguidores  WHERE seguido = '".$_rowA['id']."'");
-    $totalS = $sqlC -> num_rows;
-
-  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,14 +53,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
-    
+    <?php require "partials/header.php" ?>
+    <div class = "inf">
+        <div class = "inf"><b><?php echo $totalS; ?></b> seguidores </div>
+        <div class = "inf"><b><?php echo $totalC; ?></b> seguidos </div>
     </div>
-     <div class = "inf">
-       <div class = "inf"><b><?php echo $totalS; ?></b> seguidores </div>
-       <div class = "inf"><b><?php echo $totalC; ?></b> seguidos </div>
-    </div>
-      
-
-    
 </body>
 </html>
