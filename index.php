@@ -18,6 +18,24 @@
 
     $last = $conexion->query("SELECT * FROM movies_carac ORDER BY id_movie DESC LIMIT 5");
     $result = $last->fetchAll(PDO::FETCH_ASSOC);
+
+    $top5best = $conexion->query("SELECT movies_carac.* FROM movies_carac LEFT JOIN movies_data ON movies_carac.id_movie = movies_data.id_movie ORDER BY movies_data.usmtomatoes_score DESC LIMIT 5");
+    $result1 = $top5best->fetchAll(PDO::FETCH_ASSOC);
+
+    $limited = $conexion->query("SELECT * FROM movies_carac WHERE id_movie IN (SELECT id_movie FROM movies_data WHERE available_units < 3 )");
+    $result2 = $limited->fetchAll(PDO::FETCH_ASSOC);
+
+    $top5worst = $conexion->query("SELECT movies_carac.* FROM movies_carac LEFT JOIN movies_data ON movies_carac.id_movie = movies_data.id_movie ORDER BY movies_data.usmtomatoes_score ASC LIMIT 5");
+    $result3 = $top5worst->fetchAll(PDO::FETCH_ASSOC);
+
+    $topsellerPG = $conexion->query("SELECT movies_carac.* FROM movies_carac LEFT JOIN movies_data ON movies_carac.id_movie = movies_data.id_movie WHERE movies_carac.public = 'PG' ORDER BY movies_data.times_rented DESC LIMIT 5");
+    $result4 = $topsellerPG->fetchAll(PDO::FETCH_ASSOC);
+
+    $topsellerR = $conexion->query("SELECT movies_carac.* FROM movies_carac LEFT JOIN movies_data ON movies_carac.id_movie = movies_data.id_movie WHERE movies_carac.public = 'R' ORDER BY movies_data.times_rented DESC LIMIT 5");
+    $result5 = $topsellerR->fetchAll(PDO::FETCH_ASSOC);
+
+    $topsellerE = $conexion->query("SELECT movies_carac.* FROM movies_carac LEFT JOIN movies_data ON movies_carac.id_movie = movies_data.id_movie WHERE movies_carac.public = 'E' ORDER BY movies_data.times_rented DESC LIMIT 5");
+    $result6 = $topsellerE->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +55,7 @@
     
     <div style:"position: absolute; vertical-alignment: middle;">
         <?php if(!empty($user)): ?>
-            <h1>Latest movies added:</h1>
+            <h1>Latest movies added to BlockbUSM:</h1>
             <div class="col-md-3">
             <?php 
             foreach($result as $movies){ ?>
@@ -47,6 +65,96 @@
                             <h4 class="card-title"><?php echo $movies['title'];?></h4>
                             <h4 class="card-title"><?php echo $movies['gender'];?></h4>
                             <a class="btn" href="ver.php?view=<?php echo $movies['id_movie']; ?>">See more</a>
+                        </div>
+                    </div>
+            <?php } ?>
+            </div>
+
+            <h1>Limited stock:</h1>
+            <div class="col-md-3">
+            <?php 
+            foreach($result2 as $movies2){ ?>
+                    <div class="card">
+                        <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies2['image'];?>" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $movies2['title'];?></h4>
+                            <h4 class="card-title"><?php echo $movies2['gender'];?></h4>
+                            <a class="btn" href="ver.php?view=<?php echo $movies2['id_movie']; ?>">See more</a>
+                        </div>
+                    </div>
+            <?php } ?>
+            </div>
+
+            <h1>Top 5 Best Movies by USMTomatoes:</h1>
+            <div class="col-md-3">
+            <?php 
+            foreach($result1 as $movies3){ ?>
+                    <div class="card">
+                        <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies3['image'];?>" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $movies3['title'];?></h4>
+                            <h4 class="card-title"><?php echo $movies3['gender'];?></h4>
+                            <a class="btn" href="ver.php?view=<?php echo $movies3['id_movie']; ?>">See more</a>
+                        </div>
+                    </div>
+            <?php } ?>
+            </div>
+
+            <h1>Top 5 Worst Movies by USMTomatoes:</h1>
+            <div class="col-md-3">
+            <?php 
+            foreach($result3 as $movies4){ ?>
+                    <div class="card">
+                        <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies4['image'];?>" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $movies4['title'];?></h4>
+                            <h4 class="card-title"><?php echo $movies4['gender'];?></h4>
+                            <a class="btn" href="ver.php?view=<?php echo $movies4['id_movie']; ?>">See more</a>
+                        </div>
+                    </div>
+            <?php } ?>
+            </div>
+
+            <h1>Top 5 BestSeller PG rated movies:</h1>
+            <div class="col-md-3">
+            <?php 
+            foreach($result4 as $movies5){ ?>
+                    <div class="card">
+                        <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies5['image'];?>" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $movies5['title'];?></h4>
+                            <h4 class="card-title"><?php echo $movies5['gender'];?></h4>
+                            <a class="btn" href="ver.php?view=<?php echo $movies5['id_movie']; ?>">See more</a>
+                        </div>
+                    </div>
+            <?php } ?>
+            </div>
+
+            <h1>Top 5 BestSeller R rated movies:</h1>
+            <div class="col-md-3">
+            <?php 
+            foreach($result5 as $movies6){ ?>
+                    <div class="card">
+                        <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies6['image'];?>" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $movies6['title'];?></h4>
+                            <h4 class="card-title"><?php echo $movies6['gender'];?></h4>
+                            <a class="btn" href="ver.php?view=<?php echo $movies6['id_movie']; ?>">See more</a>
+                        </div>
+                    </div>
+            <?php } ?>
+            </div>
+
+            <h1>Top 5 BestSeller E rated movies:</h1>
+            <div class="col-md-3">
+            <?php 
+            foreach($result6 as $movies7){ ?>
+                    <div class="card">
+                        <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies7['image'];?>" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $movies7['title'];?></h4>
+                            <h4 class="card-title"><?php echo $movies7['gender'];?></h4>
+                            <a class="btn" href="ver.php?view=<?php echo $movies7['id_movie']; ?>">See more</a>
                         </div>
                     </div>
             <?php } ?>

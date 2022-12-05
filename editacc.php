@@ -22,7 +22,7 @@
         $user_del = $_GET['delete'];
         $del = $conexion->prepare("DELETE FROM users WHERE id = $user_del");
         $del->execute();
-        $string = "Location: index.php";
+        $string = "Location: salir.php";
         header($string);
     }
 

@@ -12,7 +12,9 @@
         $records->execute();
         $results = $records->fetch(PDO::FETCH_ASSOC);
         $message = '';
-        if (count($results) > 0 && password_verify($_POST['clave'], $results['password'])) {
+        if ($results == NULL) {
+            $message = 'Sorry, that account does not exist';
+        } elseif (count($results) > 0 && password_verify($_POST['clave'], $results['password'])) {
             $_SESSION['user_id'] = $results['id'];
             header("Location: /blockbusm");
         } else {

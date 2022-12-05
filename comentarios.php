@@ -34,13 +34,13 @@
         </form>
         <?php
             if(isset($_POST['comentar'])) {
-                $query = mysql_query("INSERT INTO comentarios (comentario,usuario,fecha) value ('".$_POST['comentario']."','".$_SESSION['id']."',NOW())");	
+                $query = mysql_query("INSERT INTO reviews (comment,id_reviewer) value ('".$_POST['comentario']."','".$_SESSION['user_id']."'");	
                 if($query) { header("Location: index.php"); }
             }
         ?>
         <?php
             if(isset($_POST['reply'])) {
-                $query = mysql_query("INSERT INTO comentarios (comentario,usuario,fecha,reply) value ('".$_POST['comentario']."','".$_SESSION['id']."',NOW(),'".$_GET['id']."')");	
+                $query = mysql_query("INSERT INTO comentarios (comentario,usuario,fecha,reply) value ('".$_POST['comentario']."','".$_SESSION['user_id']."',NOW(),'".$_GET['id']."')");	
                 if($query) { header("Location: index.php"); }
             }
         ?>
