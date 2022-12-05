@@ -18,11 +18,21 @@
         }
     }
 
+    if (isset($_GET['delete'])) {
+        $user_del = $_GET['delete'];
+        $del = $conexion->prepare("DELETE FROM users WHERE id = $user_del");
+        $del->execute();
+        $string = "Location: index.php";
+        header($string);
+    }
+
     if (isset($_POST['update_user'])) {
         $username  = $_POST['username'];
+        $password1 = $_POST['password'];
         $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        
 
-        if (!empty($username) && empty($password)) {
+        if (!empty($username) && empty($password1)) {
             $update = $conexion->prepare("UPDATE users SET username = '$username' WHERE id = $id");
             $profile_update = $update->execute();
             if ($profile_update) {
@@ -30,7 +40,7 @@
             } else {
                 $message[] = "Couldn't update the profile";
             }
-        } elseif (empty($username) && !empty($password)) {
+        } elseif (empty($username) && !empty($password1)) {
             $update = $conexion->prepare("UPDATE users SET password = '$password' WHERE id = $id");
             $profile_update = $update->execute();
             if ($profile_update) {
@@ -38,7 +48,7 @@
             } else {
                 $message[] = "Couldn't update the profile";
             }
-        } elseif (!empty($username) && !empty($password)) {
+        } elseif (!empty($username) && !empty($password1)) {
             $update = $conexion->prepare("UPDATE users SET username = '$username', password = '$password' WHERE id = $id");
             $profile_update = $update->execute();
             if ($profile_update) {
@@ -67,13 +77,7 @@
 </head>
 <body>
     <?php require "partials/header.php" ?>
-    <?php 
-        if (isset($message)) {
-            foreach ($message as $message) {
-                echo '<span class="message">'.$message.'</span>';
-            }
-        }    
-    ?>
+
     <div class="container" style="display: flex; flex-direction: row; justify-content: space-around; flex-flow: wrap; align-items: center;">
     
         <div class="admin-movie-form-container centered">
@@ -84,6 +88,13 @@
             ?>
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
                 <h3>Edit your account</h3>
+                <?php 
+                    if (isset($message)) {
+                        foreach ($message as $message) {
+                            echo '<span class="message">'.$message.'</span>';
+                        }
+                    }    
+                ?>
                 <input type="text" placeholder="Enter new username" value="<?php $row['username'] ?>" name="username" class="box">
                 <input type="text" placeholder="Enter new password" value="<?php $row['password'] ?>" name="password" class="box">
                 <input type="submit" value="Update user details" name="update_user" class="btn">

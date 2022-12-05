@@ -38,6 +38,12 @@
     $data->execute();
     $row = $data->fetch(PDO::FETCH_ASSOC);
 
+    $rent4 = $conexion->prepare("SELECT price FROM movies_data WHERE id_movie = :id");
+    $rent4->bindParam(':id', $peli_id);
+    $rent4->execute();
+    $precio = $rent4->fetch(PDO::FETCH_ASSOC);
+    $precio2 = $precio['price'];
+
     if (isset($_GET['wish'])) {
         $id_mov = $_GET['wish'];
         $usr = $_SESSION['user_id'];
@@ -61,12 +67,13 @@
         $usr = $_SESSION['user_id'];
         $rent = $conexion->prepare("INSERT INTO rented_movies (id_movie, renter) VALUES ('$id_rent','$usr')");
         $rent->execute();
-        $rent2 = $conexion->prepare("UPDATE users SET total_rented = total_rented + 1 WHERE id = $usr");
-        $rent2->execute();
-        $rent3 = $conexion->prepare("UPDATE movies_data SET times_rented = times_rented + 1 WHERE id_movie = $id_rent");
-        $rent3->execute();
-        $rent3 = $conexion->prepare("UPDATE movies_data SET available_units = available_units - 1 WHERE id_movie = $id_rent");
-        $rent3->execute();
+        $rent2 = $conexion->query("UPDATE users SET total_rented = total_rented + 1 WHERE id = $usr");
+        $rent3 = $conexion->query("UPDATE movies_data SET times_rented = times_rented + 1 WHERE id_movie = $id_rent");
+        $rent3 = $conexion->query("UPDATE movies_data SET available_units = available_units - 1 WHERE id_movie = $id_rent");
+        $rent4 = $conexion->query("SELECT price FROM movies_data WHERE id_movie = $id_rent");
+        $precio = $rent4->fetch(PDO::FETCH_ASSOC);
+        $precio2 = $precio['price'];
+        $rent5 = $conexion->query("UPDATE users SET balance = balance - $precio2 WHERE id = $usr");
         $string = "Location: ver.php?view=$id_rent";
         header($string);
     }
@@ -115,7 +122,7 @@
             <?php if($res3 > 0): ?>
                 <a class="btn2" href="ver.php?return=<?php echo $row['id_movie']; ?>">Return</a>
             <?php else: ?>
-                <a class="btn" href="ver.php?rent=<?php echo $row['id_movie']; ?>">Rent</a>
+                <a class="btn" href="ver.php?rent=<?php echo $row['id_movie']; ?>">Rent for $<?php echo $precio2 ?></a>
             <?php endif; ?>
         </div>
     </div>
