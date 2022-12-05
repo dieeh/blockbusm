@@ -4,7 +4,7 @@ include "includes/conexion.php";
 include "includes/funciones.php";
 
 if(!isset($_SESSION['usuario'])) {
-	header("Location: testreseña.php");
+	header("Location: ver.php");
 }
 
 ini_set('error_reporting',0);
