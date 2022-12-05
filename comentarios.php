@@ -28,7 +28,7 @@
                     <textarea name="comentario" cols="80" rows="5" id="textarea"><?php if(isset($_GET['user'])) { ?>@<?php echo $_GET['user']; ?><?php } ?> </textarea>
                 </p>
                 <p>
-                    <input type="submit" <?php if (isset($_GET['id'])) { ?>name="reply"<?php } else { ?>name="comentar"<?php } ?>value="Comentar">
+                    <input type="submit" <?php if (isset($_GET['id'])) { { ?>name="comentar"<?php } ?>value="Comentar">
                 </p>
             </center>
         </form>
@@ -38,12 +38,7 @@
                 if($query) { header("Location: index.php"); }
             }
         ?>
-        <?php
-            if(isset($_POST['reply'])) {
-                $query = mysql_query("INSERT INTO reviews (comment,usuario) value ('".$_POST['reviews']."','".$_SESSION['user_id']."',NOW(),'".$_GET['id']."')");	
-                if($query) { header("Location: index.php"); }
-            }
-        ?>
+       
         <br>
         <div id="container">
             <ul id="comments">
