@@ -44,6 +44,12 @@
     $precio = $rent4->fetch(PDO::FETCH_ASSOC);
     $precio2 = $precio['price'];
 
+    $usr23 = $_SESSION['user_id'];
+    $temp23 = $conexion->prepare("SELECT * FROM reviews WHERE id_reviewer= :weta AND id_movie_reviewed = :peli");
+    $temp23->bindParam(':weta', $usr23);
+    $temp23->bindParam(':peli', $peli_id);
+    $res23 = $temp23->fetch(PDO::FETCH_ASSOC);
+
     if (isset($_GET['wish'])) {
         $id_mov = $_GET['wish'];
         $usr = $_SESSION['user_id'];
@@ -87,6 +93,36 @@
         $rent3->execute();
         $string = "Location: ver.php?view=$peli_ret";
         header($string);
+    }
+
+    if(isset($_POST['add_comment'])) {
+        if (!isset($_POST['score'])) {
+            $message = 'The score is mandatory';
+        } else {
+            $peli_ret = $_GET['view'];
+            $usr = $_SESSION['user_id'];
+            $temp = $conexion->query("SELECT * FROM reviews WHERE id_reviewer=$usr AND id_movie_reviewed = $peli_ret");
+            $res = $temp->fetch(PDO::FETCH_ASSOC);
+            if (count($res)>0) {
+                $query = $conexion->prepare("UPDATE reviews SET score = :score, comment = :reviews  WHERE id_reviewer = :id AND id_movie_reviewed = :id_movie");
+                $query->bindParam(':reviews', $_POST['comment']);
+                $query->bindParam(':score', $_POST['score']);
+                $query->bindParam(':id', $_SESSION['user_id']);
+                $query->bindParam(':id_movie', $peli_id);
+                $query->execute();
+                $string = "Location: ver.php?view=$peli_id";
+                header($string);
+            } else {
+                $query = $conexion->prepare("INSERT INTO reviews (id_reviewer,id_movie_reviewed,score,comment) VALUES (:id,:id_movie,:score,:reviews)");
+                $query->bindParam(':reviews', $_POST['comment']);
+                $query->bindParam(':score', $_POST['score']);
+                $query->bindParam(':id', $_SESSION['user_id']);
+                $query->bindParam(':id_movie', $peli_id);
+                $query->execute();
+                $string = "Location: ver.php?view=$peli_id";
+                header($string);
+            }
+        }
     }
 ?>
 
@@ -134,6 +170,25 @@
             <?php endif; ?>
         </div>
     </div>
+    <?php if(isset($_SESSION['user_id'])): ?>
+        <?php if($res3 > 0): ?>
+            <h3>Want to give us your opinion on this movie?</h3> 
+            <?php if (!empty($message)): ?>
+                <p><?= $message ?></p>
+            <?php endif; ?>
+            <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" >
+               <center>
+                   <p>
+                       <textarea name="comment" cols="80" rows="5" id="textarea" placeholder="Add a review for this movie"></textarea>
+                   </p>
+                   <input type="text" placeholder="Enter a score for this movie" name="score" class="box">
+                   <input type="submit" value="Comentar" name="add_comment" class="btn">
+               </center>
+            </form>
+        <?php else: ?>
+        <?php endif; ?>
+    <?php else: ?>
+    <?php endif; ?>
 
 </body>
 </html>
