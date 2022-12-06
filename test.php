@@ -39,3 +39,29 @@ foreach ($result1 as $nombrecito) { ?>
         </div>
    </div>
 <?php } ?>
+
+
+<?php
+        foreach ($res23 as $datas) { ?>
+            
+            <?php
+                print_r($datas);
+                $temp2 = $conexion->prepare("SELECT * FROM movies_carac WHERE id_movie = :weta");
+                $temp2->bindParam(':weta', $datas['id_movie_reviewed']);
+                $temp2->execute();
+                $result2 = $temp2->fetch(PDO::FETCH_ASSOC);
+            ?>
+            <div class="card">
+                <div class="card-body">
+                    <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">You gave the movie <?php echo $result2['title'] ?> a score of <?php echo $datas['score']; ?></p>
+                    <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">And added the following comment: <?php echo $datas['comment']; ?></p>
+                </div>
+            </div>
+        <?php } ?>
+
+$temp2 = $conexion->prepare("SELECT * FROM movies_carac WHERE id_movie = :weta");
+                $temp2->bindParam(':weta', $datas['id_movie_reviewed']);
+                $temp2->execute();
+                $result2 = $temp2->fetch(PDO::FETCH_ASSOC);
+
+

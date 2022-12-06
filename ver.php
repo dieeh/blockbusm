@@ -45,9 +45,10 @@
     $precio2 = $precio['price'];
 
     $usr23 = $_SESSION['user_id'];
-    $temp23 = $conexion->prepare("SELECT * FROM reviews WHERE id_reviewer= :weta AND id_movie_reviewed = :peli");
+    $temp23 = $conexion->prepare("SELECT score, comment FROM reviews WHERE id_reviewer = :weta AND id_movie_reviewed = :peli");
     $temp23->bindParam(':weta', $usr23);
     $temp23->bindParam(':peli', $peli_id);
+    $temp23->execute();
     $res23 = $temp23->fetch(PDO::FETCH_ASSOC);
 
     if (isset($_GET['wish'])) {
@@ -63,6 +64,15 @@
         $peli_del = $_GET['delete'];
         $usr = $_SESSION['user_id'];
         $del = $conexion->prepare("DELETE FROM wishlist WHERE id_movie = $peli_del AND wisher = $usr");
+        $del->execute();
+        $string = "Location: ver.php?view=$peli_del";
+        header($string);
+    }
+
+    if (isset($_GET['delete_rev'])) {
+        $peli_del = $_GET['delete'];
+        $usr = $_SESSION['user_id'];
+        $del = $conexion->prepare("DELETE FROM review WHERE id_movie_reviewed = $peli_del AND id_reviewed = $usr");
         $del->execute();
         $string = "Location: ver.php?view=$peli_del";
         header($string);
@@ -172,23 +182,33 @@
     </div>
     <?php if(isset($_SESSION['user_id'])): ?>
         <?php if($res3 > 0): ?>
-            <h3>Want to give us your opinion on this movie?</h3> 
-            <?php if (!empty($message)): ?>
-                <p><?= $message ?></p>
+            <div style="width: 750px; max-width: 95%; margin: 0 auto; display: block; padding: 25px; background-color: rgba(200, 200, 200, 0.5); border-radius: 25px;">
+                <h3>Want to give us your opinion on this movie?</h3> 
+                <?php if (!empty($message)): ?>
+                    <p><?= $message ?></p>
+                <?php endif; ?>
+                <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" >
+                   <center>
+                       <p>
+                           <textarea name="comment" cols="80" rows="5" id="textarea" placeholder="Add a review for this movie"></textarea>
+                       </p>
+                       <input type="text" placeholder="Enter a score for this movie" name="score" class="box">
+                       <input type="submit" value="Comentar" name="add_comment" class="btn">
+                   </center>
+                </form>
+            <?php else: ?>
             <?php endif; ?>
-            <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST" >
-               <center>
-                   <p>
-                       <textarea name="comment" cols="80" rows="5" id="textarea" placeholder="Add a review for this movie"></textarea>
-                   </p>
-                   <input type="text" placeholder="Enter a score for this movie" name="score" class="box">
-                   <input type="submit" value="Comentar" name="add_comment" class="btn">
-               </center>
-            </form>
+            <?php if ($res23 != NULL) :?>
+                <h3>Your review of this movie:</h3> 
+                <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">You gave this movie a score of <?php echo $res23['score']; ?></p>
+                <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">And added the following comment: <?php echo $res23['comment']; ?></p>
+                <a class="btn2" href="ver.php?delete_rev=<?php echo $row['id_movie']; ?>">Delete review</a>
+            </div>
+            <?php else: ?>
+            <?php endif; ?>
         <?php else: ?>
         <?php endif; ?>
-    <?php else: ?>
-    <?php endif; ?>
+
 
 </body>
 </html>

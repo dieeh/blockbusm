@@ -33,6 +33,12 @@
     $data_seguidos->execute();
     $dataF = $data_seguidos->fetchAll(PDO::FETCH_ASSOC);
 
+    $temp23 = $conexion->prepare("SELECT id_movie_reviewed, score, comment FROM reviews WHERE id_reviewer = :weta");
+    $temp23->bindParam(':weta', $_GET['view']);
+    $temp23->execute();
+    $res23 = $temp23->fetchAll(PDO::FETCH_ASSOC);
+
+
 
     if (isset($_GET['follow'])) {
         $followeduser = $_GET['follow'];
@@ -126,6 +132,24 @@
             </div>
         </div>
     <?php } ?>
+    </div>
+    <h1>Reviews given by <?php echo $name[0]['username'] ?>:</h1>
+    <div class="col-md-3">
+    <?php
+        foreach ($res23 as $datas) { ?>
+            <?php
+                $temp2 = $conexion->prepare("SELECT * FROM movies_carac WHERE id_movie = :weta");
+                $temp2->bindParam(':weta', $datas['id_movie_reviewed']);
+                $temp2->execute();
+                $result2 = $temp2->fetch(PDO::FETCH_ASSOC);
+            ?>
+            <div class="card">
+                <div class="card-body">
+                    <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">You gave the movie <?php echo $result2['title'] ?> a score of <?php echo $datas['score']; ?></p>
+                    <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">And added the following comment: <?php echo $datas['comment']; ?></p>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </body>
 </html>

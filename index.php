@@ -39,6 +39,14 @@
 
     $toprated = $conexion->query("SELECT * FROM movies_carac WHERE id_movie IN (SELECT id_movie_reviewed FROM reviews GROUP BY id_movie_reviewed ORDER BY COUNT(id_movie_reviewed) DESC)");
     $result7 = $toprated->fetchAll(PDO::FETCH_ASSOC);
+
+    $quantRating = $conexion->query("SELECT id_movie_reviewed,COUNT(id_movie_reviewed) FROM reviews GROUP BY id_movie_reviewed ORDER BY COUNT(id_movie_reviewed) DESC");
+    $result8 = $quantRating->fetchAll(PDO::FETCH_ASSOC);
+
+    $temp23 = $conexion->prepare("SELECT id_reviewer, id_movie_reviewed, score, comment FROM reviews WHERE id_reviewer IN (SELECT following_id FROM followers WHERE follower_id = :weta)");
+    $temp23->bindParam(':weta', $_SESSION['user_id']);
+    $temp23->execute();
+    $res23 = $temp23->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +79,30 @@
                         </div>
                     </div>
             <?php } ?>
+            </div>
+
+            <h1>Reviews made by people you follow:</h1>
+            <div class="col-md-3">
+            <?php
+                foreach ($res23 as $datas) { ?>
+                    <?php
+                        $temp2 = $conexion->prepare("SELECT * FROM movies_carac WHERE id_movie = :weta");
+                        $temp2->bindParam(':weta', $datas['id_movie_reviewed']);
+                        $temp2->execute();
+                        $result_inner = $temp2->fetch(PDO::FETCH_ASSOC);
+
+                        $temp45 = $conexion->prepare("SELECT username FROM users WHERE id= :alo");
+                        $temp45->bindParam(':alo', $datas['id_reviewer']);
+                        $temp45->execute();
+                        $result_inner2 = $temp45->fetch(PDO::FETCH_ASSOC);
+                    ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;"><?php echo $result_inner2['username']?> gave the movie <?php echo $result_inner['title'] ?> a score of <?php echo $datas['score']; ?></p>
+                            <p style="font-size: 18px; line-height: 30px; margin-bottom: 10px;">And added the following comment: <?php echo $datas['comment']; ?></p>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
 
             <h1>Limited stock:</h1>
@@ -166,7 +198,7 @@
             <h1>Top 5 reviewed movies:</h1>
             <div class="col-md-3">
             <?php 
-            foreach($result7 as $movies8){ ?>
+                foreach($result7 as $movies8){ ?>
                     <div class="card">
                         <img class="card-img-top" src="assets/img/posters/uploaded/<?php echo $movies8['image'];?>" alt="">
                         <div class="card-body">
