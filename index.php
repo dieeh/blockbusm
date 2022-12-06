@@ -37,7 +37,7 @@
     $topsellerE = $conexion->query("SELECT movies_carac.* FROM movies_carac LEFT JOIN movies_data ON movies_carac.id_movie = movies_data.id_movie WHERE movies_carac.public = 'E' ORDER BY movies_data.times_rented DESC LIMIT 5");
     $result6 = $topsellerE->fetchAll(PDO::FETCH_ASSOC);
 
-    $toprated = $conexion->query("SELECT * FROM movies_carac WHERE id_movie IN (SELECT id_movie_reviewed FROM reviews ORDER BY COUNT(id_movie_reviewed))");
+    $toprated = $conexion->query("SELECT * FROM movies_carac WHERE id_movie IN (SELECT id_movie_reviewed FROM reviews GROUP BY id_movie_reviewed ORDER BY COUNT(id_movie_reviewed) DESC)");
     $result7 = $toprated->fetchAll(PDO::FETCH_ASSOC);
 ?>
 

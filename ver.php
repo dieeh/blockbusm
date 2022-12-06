@@ -103,8 +103,8 @@
             $usr = $_SESSION['user_id'];
             $temp = $conexion->query("SELECT * FROM reviews WHERE id_reviewer=$usr AND id_movie_reviewed = $peli_ret");
             $res = $temp->fetch(PDO::FETCH_ASSOC);
-            if (count($res)>0) {
-                $query = $conexion->prepare("UPDATE reviews SET score = :score, comment = :reviews  WHERE id_reviewer = :id AND id_movie_reviewed = :id_movie");
+            if ($res == null) {
+                $query = $conexion->prepare("INSERT INTO reviews (id_reviewer,id_movie_reviewed,score,comment) VALUES (:id,:id_movie,:score,:reviews)");
                 $query->bindParam(':reviews', $_POST['comment']);
                 $query->bindParam(':score', $_POST['score']);
                 $query->bindParam(':id', $_SESSION['user_id']);
@@ -112,8 +112,8 @@
                 $query->execute();
                 $string = "Location: ver.php?view=$peli_id";
                 header($string);
-            } else {
-                $query = $conexion->prepare("INSERT INTO reviews (id_reviewer,id_movie_reviewed,score,comment) VALUES (:id,:id_movie,:score,:reviews)");
+            } elseif (count($res)>0) {
+                $query = $conexion->prepare("UPDATE reviews SET score = :score, comment = :reviews  WHERE id_reviewer = :id AND id_movie_reviewed = :id_movie");
                 $query->bindParam(':reviews', $_POST['comment']);
                 $query->bindParam(':score', $_POST['score']);
                 $query->bindParam(':id', $_SESSION['user_id']);
