@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2022 a las 08:40:29
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 8.1.10
+-- Host: 127.0.0.1
+-- Generation Time: Dec 06, 2022 at 01:41 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `blockbusm`
+-- Database: `blockbusm`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
@@ -34,7 +34,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_password`) VALUES
@@ -43,7 +43,7 @@ INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `followers`
+-- Table structure for table `followers`
 --
 
 CREATE TABLE `followers` (
@@ -52,11 +52,12 @@ CREATE TABLE `followers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `followers`
+-- Dumping data for table `followers`
 --
 
 INSERT INTO `followers` (`follower_id`, `following_id`) VALUES
 (1, 3),
+(1, 6),
 (3, 1),
 (5, 1),
 (5, 3);
@@ -64,7 +65,7 @@ INSERT INTO `followers` (`follower_id`, `following_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `movies_carac`
+-- Table structure for table `movies_carac`
 --
 
 CREATE TABLE `movies_carac` (
@@ -79,7 +80,7 @@ CREATE TABLE `movies_carac` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `movies_carac`
+-- Dumping data for table `movies_carac`
 --
 
 INSERT INTO `movies_carac` (`id_movie`, `title`, `gender`, `public`, `lenght`, `cast`, `description`, `image`) VALUES
@@ -104,7 +105,7 @@ INSERT INTO `movies_carac` (`id_movie`, `title`, `gender`, `public`, `lenght`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `movies_data`
+-- Table structure for table `movies_data`
 --
 
 CREATE TABLE `movies_data` (
@@ -118,14 +119,14 @@ CREATE TABLE `movies_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `movies_data`
+-- Dumping data for table `movies_data`
 --
 
 INSERT INTO `movies_data` (`id_movie`, `price`, `times_rented`, `available_units`, `total_units`, `site_score`, `usmtomatoes_score`) VALUES
 (23, 3500, 9, 10, 10, 1, 1),
 (25, 4000, 0, 20, 20, 1, 1),
-(27, 3000, 0, 25, 25, 1, 1),
-(28, 4500, 0, 30, 30, 5, 5),
+(27, 3000, 2, 24, 25, 1, 1),
+(28, 4500, 3, 27, 30, 5, 5),
 (30, 1000, 0, 50, 50, 4, 4),
 (31, 8500, 0, 10, 10, 5, 5),
 (32, 9000, 0, 5, 5, 5, 5),
@@ -136,14 +137,14 @@ INSERT INTO `movies_data` (`id_movie`, `price`, `times_rented`, `available_units
 (37, 7000, 0, 12, 12, 1, 5),
 (38, 12000, 0, 12, 12, 2, 5),
 (39, 2300, 0, 21, 21, 3, 5),
-(40, 4500, 0, 52, 52, 4, 4),
+(40, 4500, 3, 52, 52, 4, 4),
 (41, 5500, 0, 5, 5, 5, 5),
 (42, 10000, 2, 2, 4, 5, 5);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rented_movies`
+-- Table structure for table `rented_movies`
 --
 
 CREATE TABLE `rented_movies` (
@@ -152,10 +153,14 @@ CREATE TABLE `rented_movies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `rented_movies`
+-- Dumping data for table `rented_movies`
 --
 
 INSERT INTO `rented_movies` (`id_movie`, `renter`) VALUES
+(27, 1),
+(28, 1),
+(28, 5),
+(28, 6),
 (38, 1),
 (38, 3),
 (39, 3),
@@ -168,7 +173,7 @@ INSERT INTO `rented_movies` (`id_movie`, `renter`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reviews`
+-- Table structure for table `reviews`
 --
 
 CREATE TABLE `reviews` (
@@ -178,10 +183,20 @@ CREATE TABLE `reviews` (
   `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id_reviewer`, `id_movie_reviewed`, `score`, `comment`) VALUES
+(1, 28, 5, 'quien pa eso'),
+(1, 40, 5, 'besto movie'),
+(5, 28, 5, 'what is that melody????'),
+(6, 28, 4, 'buena wnnnn');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -193,19 +208,19 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `total_rented`, `balance`) VALUES
-(1, 'dieeh', '$2y$10$Q2xAolr/zs75sjhZl7T1vup871PjwNGtrm17eszB35EPXQcJgMlG6', 15, 1000000),
+(1, 'dieeh', '$2y$10$Q2xAolr/zs75sjhZl7T1vup871PjwNGtrm17eszB35EPXQcJgMlG6', 21, 976000),
 (3, 'test2', '$2y$10$EeT35FJGC9sa36UvNgn/Vuwzmmrw7cqn.Dotdwjgwvhhuh3Oe4Jg.', 13, 993000),
-(5, 'test1', '$2y$10$Io10VTAbnPGtEQRnePsxVu9UjHioXb2nqVA7qY9Hfee14.8lCq0bu', 1, 990000),
-(6, 'test4', '$2y$10$6buDgjZnL1eniCAoY3u.aeOOtHMMIOlArNK/DP32GF6bujkvhIUOW', 1, 990000);
+(5, 'test1', '$2y$10$Io10VTAbnPGtEQRnePsxVu9UjHioXb2nqVA7qY9Hfee14.8lCq0bu', 2, 985500),
+(6, 'test4', '$2y$10$6buDgjZnL1eniCAoY3u.aeOOtHMMIOlArNK/DP32GF6bujkvhIUOW', 2, 985500);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `wishlist`
+-- Table structure for table `wishlist`
 --
 
 CREATE TABLE `wishlist` (
@@ -214,132 +229,134 @@ CREATE TABLE `wishlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `wishlist`
+-- Dumping data for table `wishlist`
 --
 
 INSERT INTO `wishlist` (`id_movie`, `wisher`) VALUES
+(27, 1),
 (27, 5),
+(30, 1),
 (38, 1),
 (40, 1),
 (42, 1);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`admin_id`);
 
 --
--- Indices de la tabla `followers`
+-- Indexes for table `followers`
 --
 ALTER TABLE `followers`
   ADD PRIMARY KEY (`follower_id`,`following_id`),
   ADD KEY `followers_ibfk_2` (`following_id`);
 
 --
--- Indices de la tabla `movies_carac`
+-- Indexes for table `movies_carac`
 --
 ALTER TABLE `movies_carac`
   ADD PRIMARY KEY (`id_movie`);
 
 --
--- Indices de la tabla `movies_data`
+-- Indexes for table `movies_data`
 --
 ALTER TABLE `movies_data`
   ADD PRIMARY KEY (`id_movie`);
 
 --
--- Indices de la tabla `rented_movies`
+-- Indexes for table `rented_movies`
 --
 ALTER TABLE `rented_movies`
   ADD PRIMARY KEY (`id_movie`,`renter`),
   ADD KEY `rented_movies_ibfk_2` (`renter`);
 
 --
--- Indices de la tabla `reviews`
+-- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id_reviewer`,`id_movie_reviewed`),
   ADD KEY `reviews_ibfk_2` (`id_movie_reviewed`);
 
 --
--- Indices de la tabla `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `wishlist`
+-- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
   ADD PRIMARY KEY (`id_movie`,`wisher`),
   ADD KEY `wishlist_ibfk_1` (`wisher`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `admin`
+-- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `movies_carac`
+-- AUTO_INCREMENT for table `movies_carac`
 --
 ALTER TABLE `movies_carac`
   MODIFY `id_movie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT de la tabla `movies_data`
+-- AUTO_INCREMENT for table `movies_data`
 --
 ALTER TABLE `movies_data`
   MODIFY `id_movie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT de la tabla `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `followers`
+-- Constraints for table `followers`
 --
 ALTER TABLE `followers`
   ADD CONSTRAINT `followers_ibfk_1` FOREIGN KEY (`follower_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `followers_ibfk_2` FOREIGN KEY (`following_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `movies_data`
+-- Constraints for table `movies_data`
 --
 ALTER TABLE `movies_data`
   ADD CONSTRAINT `test` FOREIGN KEY (`id_movie`) REFERENCES `movies_carac` (`id_movie`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `rented_movies`
+-- Constraints for table `rented_movies`
 --
 ALTER TABLE `rented_movies`
   ADD CONSTRAINT `rented_movies_ibfk_1` FOREIGN KEY (`id_movie`) REFERENCES `movies_carac` (`id_movie`) ON DELETE CASCADE,
   ADD CONSTRAINT `rented_movies_ibfk_2` FOREIGN KEY (`renter`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `reviews`
+-- Constraints for table `reviews`
 --
 ALTER TABLE `reviews`
   ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`id_reviewer`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`id_movie_reviewed`) REFERENCES `movies_carac` (`id_movie`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `wishlist`
+-- Constraints for table `wishlist`
 --
 ALTER TABLE `wishlist`
   ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`wisher`) REFERENCES `users` (`id`) ON DELETE CASCADE;
